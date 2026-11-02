@@ -12,14 +12,14 @@ const ext = DOWNLOADS.find((d) => d.extension)!;
 const kb = (n: number) => `${(n / 1024).toFixed(1)} KB`;
 const host = (u: string) => new URL(u).hostname.replace(/^www\./, "");
 
-type RowDef = { label: string; note?: string; kind: "company" | "calculated" | "assumption" | "hypothetical" | "press"; label?: string; get: (r: ReverseUnderwriting) => string; neg?: (r: ReverseUnderwriting) => boolean };
+type RowDef = { label: string; note?: string; kind: "company" | "calculated" | "assumption" | "hypothetical" | "press"; badge?: string; get: (r: ReverseUnderwriting) => string; neg?: (r: ReverseUnderwriting) => boolean };
 const ROWS: RowDef[] = [
   { label: "Existing exit multiple (EV / ARR)", kind: "assumption", get: (r) => fmtX(r.exitMultiple, 1) },
   { label: "Required exit multiple for the target gross IRR", note: "Solved holding modeled ARR, stake, net debt and hold fixed", kind: "calculated", get: (r) => fmtX(r.reqEvArr, 2) },
   { label: "Modeled exit ARR", kind: "calculated", get: (r) => fmtUsd(r.exitArr) },
   { label: "Required ARR at the modeled exit multiple", note: "Solved holding the multiple fixed", kind: "calculated", get: (r) => fmtUsd(r.reqArr) },
   { label: "Incremental ARR required", kind: "calculated", get: (r) => fmtUsd(r.addArr), neg: (r) => r.addArr < 0 },
-  { label: "Public core-peer median EV / TTM revenue", note: "Fixed 2 Nov 2026 market observation", kind: "press", label: "Third-party market data", get: (r) => fmtX(r.peerMedian, 2) },
+  { label: "Public core-peer median EV / TTM revenue", note: "Fixed 2 Nov 2026 market observation", kind: "press", badge: "Third-party market data", get: (r) => fmtX(r.peerMedian, 2) },
   { label: "Peer median less modeled multiple", kind: "calculated", get: (r) => `${r.peerLessModeled >= 0 ? "+" : ""}${fmtX(r.peerLessModeled, 2)}`, neg: (r) => r.peerLessModeled < 0 },
   { label: "Gross MOIC at the peer median", kind: "calculated", get: (r) => fmtX(r.peerMoic), neg: (r) => r.peerMoic < 1 },
   { label: "Gross IRR at the peer median", kind: "calculated", get: (r) => fmtPct(r.peerIrr), neg: (r) => r.peerIrr < 0 },
@@ -144,7 +144,7 @@ export function ValuationEvidenceView() {
               {ROWS.map((row) => (
                 <tr key={row.label}>
                   <th scope="row" className="font-normal">{row.label}{row.note && <span className="block text-[11.5px] text-mute">{row.note}</span>}</th>
-                  <td><KindBadge kind={row.kind} label={row.label} /></td>
+                  <td><KindBadge kind={row.kind} label={row.badge} /></td>
                   {COMPANY_IDS.map((id) => <td key={id} className={`r num ${row.neg?.(rev[id]) ? "neg" : ""}`}>{row.get(rev[id])}</td>)}
                 </tr>
               ))}
