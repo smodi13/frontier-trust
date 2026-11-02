@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { DOWNLOADS, downloadHref } from "@/data/downloads";
 import { HISTORICAL, NOTES, QUALITY_BY_CLASSIFICATION, SOURCES, SUPPLEMENTAL_SOURCES, kindOfDataType, type SourceRecord } from "@/data/sources";
@@ -141,6 +142,7 @@ export function EvidenceView() {
         <ul className="grid gap-3 md:grid-cols-2">
           {DOWNLOADS.map((d) => (
             <li key={d.file} className="card p-3">
+              {d.extension && <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-teal">Research extension · separate from the original workbook</p>}
               <p className="font-semibold text-navy">{d.title}</p>
               <p className="text-[12.5px] text-mute">{d.description} · {kb(d.bytes)}</p>
               <p className="mt-1 break-all font-mono text-[10.5px] text-mute">sha256 {d.sha256}</p>
@@ -148,6 +150,7 @@ export function EvidenceView() {
             </li>
           ))}
         </ul>
+        <p className="mt-2 text-[12.5px] text-mute">Public-market comparables, private deal signals and the exit-multiple review from the extension workbook are shown on the <Link href="/valuation-evidence" className="text-teal underline">Valuation Evidence</Link> page.</p>
       </Section>
     </>
   );

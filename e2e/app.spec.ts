@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import downloads from "../src/data/downloads.json";
 
-const ROUTES = ["/", "/opportunities", "/companies/vanta", "/companies/chainguard", "/underwriting", "/allocation", "/committee", "/monitoring", "/evidence"];
+const ROUTES = ["/", "/opportunities", "/companies/vanta", "/companies/chainguard", "/underwriting", "/allocation", "/committee", "/monitoring", "/evidence", "/valuation-evidence"];
 
 for (const path of ROUTES) {
   test(`loads ${path} without errors and passes accessibility`, async ({ page }) => {
@@ -81,7 +81,7 @@ test("evidence: 18 records, filters, anchors, downloads", async ({ page, request
     expect(createHash("sha256").update(buf).digest("hex")).toBe(d.sha256);
     expect(createHash("sha256").update(readFileSync(`source-documents/${d.file}`)).digest("hex")).toBe(d.sha256);
   }
-  const [dl] = await Promise.all([page.waitForEvent("download"), page.getByRole("link", { name: /Download XLSX/ }).click()]);
+  const [dl] = await Promise.all([page.waitForEvent("download"), page.locator('a[href$="Frontier_Trust_Formula_Driven_Underwriting.xlsx"]').click()]);
   expect(dl.suggestedFilename()).toBe("Frontier_Trust_Formula_Driven_Underwriting.xlsx");
 });
 
@@ -168,4 +168,54 @@ test("editing assumptions shows the static-downloads notice; originals stay byte
     const buf = await (await request.get(`/downloads/${d.file}`)).body();
     expect(createHash("sha256").update(buf).digest("hex")).toBe(d.sha256);
   }
+});
+
+test("valuation evidence: eight peers, calculated median, disclosures, links", async ({ page }) => {
+  await page.goto("/valuation-evidence");
+  await expect(page.locator('nav a[href="/valuation-evidence"]').first()).toBeAttached();
+  await expect(page.locator("#comps tbody tr")).toHaveCount(8);
+  for (const t of ["RPD", "TENB", "S", "VRNS", "QLYS", "OKTA", "ZS", "CRWD"]) await expect(page.locator(`#peer-${t}`)).toBeVisible();
+  await expect(page.locator("#peer-QLYS")).toContainText("9.29x");
+  await expect(page.getByTestId("peer-stats")).toContainText("8.44x");
+  await expect(page.getByText("EV / revenue is not EV / ARR.")).toBeVisible();
+  await expect(page.getByText("Raw quotients are not exit multiples.")).toBeVisible();
+  await expect(page.getByText("MISMATCH: 2025 valuation / 2026 ARR")).toBeVisible();
+  await expect(page.getByText("BOUND ONLY").first()).toBeVisible();
+  await expect(page.getByText("Equity financing valuation (post-money)").first()).toBeVisible();
+  await expect(page.getByText("Acquisition price (M&A)")).toBeVisible();
+  await expect(page.locator("#peer-ZS a[target=_blank]").first()).toHaveAttribute("href", "https://stockanalysis.com/stocks/zs/statistics/");
+  // reverse underwriting values match the extension workbook
+  const rev = page.locator("#reverse");
+  await expect(rev).toContainText("13.50x");
+  await expect(rev).toContainText("17.15x");
+  await expect(rev).toContainText("$1,866.2M");
+  await expect(rev).toContainText("9.2%");
+  await expect(rev).toContainText("3.8%");
+  await expect(rev).toContainText("($68.7M)");
+  await expect(page.getByText("Investment conclusion unchanged.")).toBeVisible();
+});
+
+test("valuation evidence recalculates when assumptions change", async ({ page }) => {
+  await page.goto("/allocation");
+  await page.getByLabel("Pre-money valuation", { exact: true }).first().fill("3000");
+  await page.goto("/valuation-evidence");
+  const rev = page.locator("#reverse");
+  await expect(rev).not.toContainText("13.50x");
+  await expect(rev).toContainText("Assumptions modified.");
+  await expect(page.getByText("Downloads have not changed.").first()).toBeVisible();
+  await page.goto("/underwriting");
+  await page.getByLabel("First-year ARR growth (2027)").fill("60");
+  await page.goto("/valuation-evidence");
+  await expect(page.locator("#peer-QLYS")).toContainText("9.29x"); // public inputs stay fixed
+  await expect(page.getByTestId("peer-stats")).toContainText("8.44x");
+});
+
+test("extension workbook download is available and distinct from the original", async ({ page, request }) => {
+  await page.goto("/valuation-evidence");
+  const [dl] = await Promise.all([page.waitForEvent("download"), page.getByRole("link", { name: /Download extension workbook/ }).click()]);
+  expect(dl.suggestedFilename()).toBe("Frontier_Trust_Underwriting_With_Market_Comparables.xlsx");
+  await page.goto("/evidence");
+  await expect(page.getByText("Research extension · separate from the original workbook")).toBeVisible();
+  await expect(page.getByRole("link", { name: /Download XLSX/ })).toHaveCount(2);
+  expect((await request.get("/downloads/Frontier_Trust_Formula_Driven_Underwriting.xlsx")).status()).toBe(200);
 });

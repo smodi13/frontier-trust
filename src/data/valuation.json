@@ -1,0 +1,204 @@
+{
+ "peers": [
+  {
+   "company": "Rapid7",
+   "ticker": "RPD",
+   "ev": 1260,
+   "ttmRevenue": 855.92,
+   "yoy": 0.001,
+   "role": "Mature / weaker growth",
+   "date": "2026-11-02",
+   "quoteUrl": "https://stockanalysis.com/stocks/rpd/statistics/",
+   "operatingUrl": "https://investors.rapid7.com/news/news-details/2026/Rapid7-Announces-Second-Quarter-2026-Financial-Results/default.aspx",
+   "definition": "Market close, USD",
+   "caveat": "Negative ARR growth; include as stressed floor, not a primary high-growth anchor",
+   "core": false,
+   "outlier": false
+  },
+  {
+   "company": "Tenable",
+   "ticker": "TENB",
+   "ev": 5320,
+   "ttmRevenue": 1070,
+   "yoy": 0.095,
+   "role": "Mature security",
+   "date": "2026-11-02",
+   "quoteUrl": "https://stockanalysis.com/stocks/tenb/statistics/",
+   "operatingUrl": "https://investors.tenable.com/news-releases/news-release-details/tenable-announces-second-quarter-2026-financial-results",
+   "definition": "Market close, USD",
+   "caveat": "Lower revenue growth, higher FCF than private targets",
+   "core": true,
+   "outlier": false
+  },
+  {
+   "company": "SentinelOne",
+   "ticker": "S",
+   "ev": 8100,
+   "ttmRevenue": 1100,
+   "yoy": 0.211,
+   "role": "Growth security",
+   "date": "2026-11-02",
+   "quoteUrl": "https://stockanalysis.com/stocks/s/statistics/",
+   "operatingUrl": "https://investors.sentinelone.com/financial-info/quarterly-results/default.aspx",
+   "definition": "Market close, USD",
+   "caveat": "Growth comparable, different endpoint security product and maturity",
+   "core": true,
+   "outlier": false
+  },
+  {
+   "company": "Varonis",
+   "ticker": "VRNS",
+   "ev": 5220,
+   "ttmRevenue": 688.1,
+   "yoy": 0.156,
+   "role": "Data security",
+   "date": "2026-11-02",
+   "quoteUrl": "https://stockanalysis.com/stocks/vrns/statistics/",
+   "operatingUrl": "https://www.sec.gov/Archives/edgar/data/1361113/000117184326004948/exh_991.htm",
+   "definition": "Market close, USD",
+   "caveat": "SaaS migration makes reporting metrics non-comparable",
+   "core": true,
+   "outlier": false
+  },
+  {
+   "company": "Qualys",
+   "ticker": "QLYS",
+   "ev": 6530,
+   "ttmRevenue": 702.98,
+   "yoy": 0.104,
+   "role": "Compliance / security",
+   "date": "2026-11-02",
+   "quoteUrl": "https://stockanalysis.com/stocks/qlys/statistics/",
+   "operatingUrl": "https://www.sec.gov/Archives/edgar/data/1107843/000110784326000034/qlys-20260804xex991.htm",
+   "definition": "Market close, USD",
+   "caveat": "Mature profitable compliance exposure, lower growth",
+   "core": true,
+   "outlier": false
+  },
+  {
+   "company": "Okta",
+   "ticker": "OKTA",
+   "ev": 30070,
+   "ttmRevenue": 3070,
+   "yoy": 0.112,
+   "role": "Trust / identity",
+   "date": "2026-11-02",
+   "quoteUrl": "https://stockanalysis.com/stocks/okta/statistics/",
+   "operatingUrl": "https://www.okta.com/en-ca/newsroom/press-releases/okta-announces-second-quarter-2027-financial-results/",
+   "definition": "Market close, USD",
+   "caveat": "Large, profitable identity platform not pure GRC",
+   "core": true,
+   "outlier": false
+  },
+  {
+   "company": "Zscaler",
+   "ticker": "ZS",
+   "ev": 34880,
+   "ttmRevenue": 3350,
+   "yoy": 0.254,
+   "role": "Cloud / AI security",
+   "date": "2026-11-02",
+   "quoteUrl": "https://stockanalysis.com/stocks/zs/statistics/",
+   "operatingUrl": "https://www.sec.gov/Archives/edgar/data/1713683/000171368326000156/zs-07312026_991.htm",
+   "definition": "Market close, USD",
+   "caveat": "More mature network security, revenue includes acquisitions",
+   "core": true,
+   "outlier": false
+  },
+  {
+   "company": "CrowdStrike",
+   "ticker": "CRWD",
+   "ev": 243930,
+   "ttmRevenue": 5400,
+   "yoy": 0.243,
+   "role": "Premium security outlier",
+   "date": "2026-11-02",
+   "quoteUrl": "https://stockanalysis.com/stocks/crwd/statistics/",
+   "operatingUrl": "https://ir.crowdstrike.com/news-releases/news-release-details/crowdstrike-reports-second-quarter-fiscal-year-2027",
+   "definition": "Market close, USD",
+   "caveat": "Outlier strategic platform valuation, not a median calibration",
+   "core": false,
+   "outlier": true
+  }
+ ],
+ "deals": [
+  {
+   "target": "Vanta",
+   "transaction": "July 2025 Series D post-money",
+   "price": 4150,
+   "arr": 300,
+   "arrDate": "2026-04-29",
+   "priceDate": "2025-07-23",
+   "validity": "MISMATCH: 2025 valuation / 2026 ARR",
+   "priceUrl": "https://www.vanta.com/resources/vanta-announces-series-d",
+   "arrUrl": "https://www.vanta.com/resources/vanta-crosses-300m-in-arr-as-growth-accelerates"
+  },
+  {
+   "target": "Chainguard",
+   "transaction": "April 2025 Series D equity post-money",
+   "price": 3500,
+   "arr": 40,
+   "arrDate": "2025-04-23",
+   "priceDate": "2025-04-23",
+   "validity": "Near contemporaneous but EQUITY/ARR, not EV/ARR",
+   "priceUrl": "https://www.prnewswire.com/news-releases/chainguard-raises-356-million-in-series-d-funding-to-be-the-safe-source-for-all-open-source-302435220.html",
+   "arrUrl": "https://www.prnewswire.com/news-releases/chainguard-raises-356-million-in-series-d-funding-to-be-the-safe-source-for-all-open-source-302435220.html"
+  },
+  {
+   "target": "Chainguard",
+   "transaction": "April 2025 equity price / June 2026 ARR",
+   "price": 3500,
+   "arr": 100,
+   "arrDate": "2026-06",
+   "priceDate": "2025-04-23",
+   "validity": "MISMATCH: historical price / third-party future estimate",
+   "priceUrl": "https://www.prnewswire.com/news-releases/chainguard-raises-356-million-in-series-d-funding-to-be-the-safe-source-for-all-open-source-302435220.html",
+   "arrUrl": "https://sacra.com/c/chainguard/"
+  },
+  {
+   "target": "Wiz",
+   "transaction": "Google purchase price adjusted, 2026",
+   "price": 29467,
+   "arr": 1000,
+   "arrDate": "2025 (more than $1B ARR)",
+   "priceDate": "2026-03-11",
+   "validity": "BOUND ONLY: 2025 ARR exceeds anchor; M&A value includes strategic synergies",
+   "priceUrl": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+   "arrUrl": "https://techcrunch.com/2026/03/11/google-completes-32b-acquisition-of-wiz/"
+  }
+ ],
+ "notes": {
+  "compsTitle": "PUBLIC MARKET COMPS | 02 NOV 2026 CLOSE",
+  "compsSubtitle": "Sourced EV ($m) and TTM revenue ($m) are historical market inputs; EV / TTM revenue is formula-driven. These are not ARR multiples or forward exit valuations.",
+  "interpretation": [
+   "INTERPRETATION: The observed multiples are EV / historical revenue. Exit valuation assumptions are EV / exit ARR. Revenue and ARR are not automatically equal.",
+   "Market prices can change daily, and peer equity valuations include different debt, cash, growth, FCF, dilution and company-specific risk."
+  ],
+  "inputSource": "Input source: S&P Global Market Intelligence data distributed by StockAnalysis (as of Nov 2, 2026); operating context from corporate earnings releases.",
+  "coreLabel": "Median, core non-distressed (ex RPD, CRWD)",
+  "medianLabels": {
+   "all": "Median, all 8",
+   "exCrwd": "Median, excluding CrowdStrike",
+   "core": "Median, core non-distressed (ex RPD, CRWD)",
+   "low": "Low, all 8",
+   "high": "High, all 8",
+   "mean": "Mean, all 8"
+  },
+  "reverseTitle": "EXIT MULTIPLE REVIEW | LIVE REVERSE UNDERWRITING",
+  "reverseSubtitle": "No change to approved original underwriting. This sheet tests how today's market EV / TTM revenue observations compare with 2031 modeled EV / ARR assumptions.",
+  "reverseNotes": [
+   "Required EV / ARR holds modeled ARR, ownership, net debt and holding period fixed, then solves for a target 20% gross IRR.",
+   "Required 2031 ARR holds the modeled exit multiple fixed, then solves for ARR at the target gross IRR.",
+   "The observed peer median is an alternative heuristic, not a forecast or an analytically justified exit multiple.",
+   "No multiples have been changed in the original Assumptions, Returns, Valuation Matrix, or website parity baseline.",
+   "A rigorous next diligence round needs customer retention, cohort contribution, margins, capital stack, security rights and exit market access."
+  ],
+  "dealsTitle": "PRIVATE TRANSACTION SIGNALS | HISTORICAL ONLY",
+  "dealsSubtitle": "Equity-financing valuations and M&A prices do not equal public-market EV multiples. Date alignment and security rights matter. No private signal automatically sets our exit multiple.",
+  "dealCautions": [
+   "CAUTION: The Wiz quotient is an upper bound if ARR was greater than $1B; it is not a transaction EV / ARR multiple.",
+   "The Chainguard Series D quotient is equity value / ARR at announcement, with unknown capital structure and security preferences.",
+   "The Vanta / Chainguard cross-date quotients are deliberately included as an example of a misleading shortcut, not valuation observations."
+  ]
+ }
+}

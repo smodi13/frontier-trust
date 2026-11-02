@@ -15,6 +15,7 @@ const NAV = [
   { href: "/committee", label: "Investment Committee", n: "6" },
   { href: "/monitoring", label: "Portfolio Monitoring", n: "7" },
   { href: "/evidence", label: "Evidence Center", n: "8" },
+  { href: "/valuation-evidence", label: "Valuation Evidence", n: "9" },
 ];
 
 function Nav({ onNavigate }: { onNavigate?: () => void }) {
