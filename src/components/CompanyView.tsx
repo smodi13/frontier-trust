@@ -1,6 +1,6 @@
 "use client";
 import { COMPANIES, type Fact } from "@/data/companies";
-import { RISKS, SOURCE_BY_ID } from "@/data/sources";
+import { RISKS, SOURCE_BY_ID, SUPPLEMENTAL_SOURCES } from "@/data/sources";
 import { COMPANY_LABEL, fmtPct, fmtUsd, fmtX, type CompanyId } from "@/engine";
 import { useModel } from "@/state/store";
 import { KindBadge, Legend, Notice, PageHeader, Section, SourceRefs } from "./ui";
@@ -62,6 +62,28 @@ export function CompanyView({ id }: { id: CompanyId }) {
         </div>
       </Section>
 
+      {id === "chainguard" && (
+        <Section title="Supplemental company announcements (Oct 2026)" id="supplemental" aside={<span className="text-[12px] text-mute">Supplemental evidence · not part of the 18 workbook records</span>}>
+          <div className="card overflow-x-auto" tabIndex={0}>
+            <table className="tbl min-w-[640px]">
+              <thead><tr><th>ID</th><th>Announcement</th><th>Published</th><th>Classification</th><th>Source</th></tr></thead>
+              <tbody>
+                {SUPPLEMENTAL_SOURCES.map((x) => (
+                  <tr key={x.id}>
+                    <td><SourceRefs ids={[x.id]} /></td>
+                    <td>{x.establishes}</td>
+                    <td className="num whitespace-nowrap">{x.date}</td>
+                    <td><KindBadge kind="company" label="Company announcement" /></td>
+                    <td><a href={x.url} target="_blank" rel="noopener noreferrer" className="text-teal underline">chainguard.dev</a></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="mt-2"><Notice title="Not evidence of traction.">These are vendor-published product announcements. They are not independent validation of adoption, customers, pricing power, ARR or profitability, and the model makes no adjustment for them.</Notice></div>
+        </Section>
+      )}
+
       <Section title="Risks and failure modes" id="risks" aside={<span className="text-[12px] text-mute">Workbook Risk Register · statuses are research work, not audited findings</span>}>
         <div className="card overflow-x-auto" tabIndex={0}>
           <table className="tbl min-w-[760px]">
@@ -101,7 +123,7 @@ export function CompanyView({ id }: { id: CompanyId }) {
           <table className="tbl min-w-[620px]">
             <thead><tr><th>ID</th><th>Evidence</th><th>Classification</th><th>Date</th></tr></thead>
             <tbody>
-              {c.provenance.map((sid) => {
+              {[...c.provenance, ...(id === "chainguard" ? SUPPLEMENTAL_SOURCES.map((x) => x.id) : [])].map((sid) => {
                 const s = SOURCE_BY_ID[sid];
                 return (
                   <tr key={sid}><td><SourceRefs ids={[sid]} /></td><td>{s.evidence} <span className="text-mute">— {s.establishes}</span></td><td>{s.classification}</td><td className="num whitespace-nowrap">{s.date}</td></tr>

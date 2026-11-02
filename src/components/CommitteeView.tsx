@@ -4,7 +4,7 @@ import { NOTES, RISKS } from "@/data/sources";
 import { CASE_IDS, COMPANY_IDS, COMPANY_LABEL, fmtPct, fmtUsd, fmtX, type CaseId } from "@/engine";
 import { resetModel, useModel } from "@/state/store";
 import { PriceChart } from "./Charts";
-import { KindBadge, Notice, Section, SourceRefs } from "./ui";
+import { KindBadge, ModelLimitations, Notice, Section, SourceRefs } from "./ui";
 
 const CASE_LABEL: Record<CaseId, string> = { bear: "Bear", base: "Base", bull: "Bull" };
 
@@ -189,6 +189,8 @@ export function CommitteeView() {
           </ul>
         </Section>
       </div>
+
+      <ModelLimitations />
 
       <Notice title="Disclosures.">
         {NOTES.disclaimer} Prices are hypothetical. No data room, management conversations, live quotes, preferred terms or auditor verification were obtained. Figures marked calculated are produced by this application&apos;s engine from labeled analyst assumptions and sourced inputs.

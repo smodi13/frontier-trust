@@ -1,8 +1,9 @@
 "use client";
 import { useMemo, useState } from "react";
 import { DOWNLOADS, downloadHref } from "@/data/downloads";
-import { HISTORICAL, NOTES, QUALITY_BY_CLASSIFICATION, SOURCES, kindOfDataType } from "@/data/sources";
-import { KindBadge, Notice, Section, SourceRefs } from "./ui";
+import { HISTORICAL, NOTES, QUALITY_BY_CLASSIFICATION, SOURCES, SUPPLEMENTAL_SOURCES, kindOfDataType, type SourceRecord } from "@/data/sources";
+import { useModel } from "@/state/store";
+import { KindBadge, Notice, Section, SourceRefs, StaticDownloadsNotice } from "./ui";
 
 const uniq = (xs: string[]) => [...new Set(xs)].sort();
 const sel = "rounded border border-slate-400 bg-white px-2 py-1 text-[13px]";
@@ -16,9 +17,10 @@ export function EvidenceView() {
   const [to, setTo] = useState("");
   const [claim, setClaim] = useState("");
 
-  const rows = useMemo(() => {
+  const { modified } = useModel();
+  const match = useMemo(() => {
     const t = claim.trim().toLowerCase();
-    return SOURCES.filter((s) => {
+    return (s: SourceRecord) => {
       if (entity && s.entity !== entity) return false;
       if (type && s.classification !== type) return false;
       if (quality && s.quality !== quality) return false;
@@ -26,20 +28,22 @@ export function EvidenceView() {
       if (from && s.isoDate! < from) return false;
       if (to && s.isoDate! > to) return false;
       return !t || [s.id, s.evidence, s.establishes].some((x) => x.toLowerCase().includes(t));
-    });
+    };
   }, [entity, type, quality, from, to, claim]);
+  const rows = SOURCES.filter(match);
+  const suppRows = SUPPLEMENTAL_SOURCES.filter(match);
   const active = entity || type || quality || from || to || claim;
 
   return (
     <>
-      <Section title="Research source register" id="register" aside={<span className="text-[12px] text-mute">Workbook sheet “Sources” · imported verbatim · as of 2 Nov 2026</span>}>
+      <Section title="Original workbook evidence register (S01–S18)" id="register" aside={<span className="text-[12px] text-mute">Workbook sheet “Sources” · imported verbatim · as of 2 Nov 2026</span>}>
         <form role="search" aria-label="Filter evidence" className="card mb-3 flex flex-wrap items-end gap-3 p-3" onSubmit={(e) => e.preventDefault()}>
           <label className="flex flex-col gap-1 text-[12px] font-medium text-slate">Company / entity
-            <select className={sel} value={entity} onChange={(e) => setEntity(e.target.value)}><option value="">All</option>{uniq(SOURCES.map((s) => s.entity)).map((x) => <option key={x}>{x}</option>)}</select></label>
+            <select className={sel} value={entity} onChange={(e) => setEntity(e.target.value)}><option value="">All</option>{uniq([...SOURCES, ...SUPPLEMENTAL_SOURCES].map((s) => s.entity)).map((x) => <option key={x}>{x}</option>)}</select></label>
           <label className="flex flex-col gap-1 text-[12px] font-medium text-slate">Source type
-            <select className={sel} value={type} onChange={(e) => setType(e.target.value)}><option value="">All</option>{uniq(SOURCES.map((s) => s.classification)).map((x) => <option key={x}>{x}</option>)}</select></label>
+            <select className={sel} value={type} onChange={(e) => setType(e.target.value)}><option value="">All</option>{uniq([...SOURCES, ...SUPPLEMENTAL_SOURCES].map((s) => s.classification)).map((x) => <option key={x}>{x}</option>)}</select></label>
           <label className="flex flex-col gap-1 text-[12px] font-medium text-slate">Evidence quality
-            <select className={sel} value={quality} onChange={(e) => setQuality(e.target.value)}><option value="">All</option>{uniq(SOURCES.map((s) => s.quality)).map((x) => <option key={x}>{x}</option>)}</select></label>
+            <select className={sel} value={quality} onChange={(e) => setQuality(e.target.value)}><option value="">All</option>{uniq([...SOURCES, ...SUPPLEMENTAL_SOURCES].map((s) => s.quality)).map((x) => <option key={x}>{x}</option>)}</select></label>
           <label className="flex flex-col gap-1 text-[12px] font-medium text-slate">Evidence date from
             <input type="date" className={sel} value={from} onChange={(e) => setFrom(e.target.value)} /></label>
           <label className="flex flex-col gap-1 text-[12px] font-medium text-slate">to
@@ -48,7 +52,7 @@ export function EvidenceView() {
             <input type="search" className={sel} placeholder="e.g. ARR, valuation, Docker" value={claim} onChange={(e) => setClaim(e.target.value)} /></label>
           <button type="button" disabled={!active} onClick={() => { setEntity(""); setType(""); setQuality(""); setFrom(""); setTo(""); setClaim(""); }} className="rounded border border-navy px-3 py-1 text-[13px] font-medium text-navy disabled:opacity-40">Clear</button>
         </form>
-        <p className="mb-2 text-[12.5px] text-mute" role="status" aria-live="polite" data-testid="evidence-count">Showing {rows.length} of {SOURCES.length} records{(from || to) && " (date filters exclude records without an exact date)"}</p>
+        <p className="mb-2 text-[12.5px] text-mute" role="status" aria-live="polite" data-testid="evidence-count">Showing {rows.length} of {SOURCES.length} original records{(from || to) && " (date filters exclude records without an exact date)"}</p>
         <div className="card overflow-x-auto" tabIndex={0}>
           <table className="tbl min-w-[980px]">
             <thead><tr><th>ID</th><th>Entity</th><th>Evidence</th><th>Source type</th><th>Evidence quality</th><th>What it establishes</th><th>Evidence date</th><th>Source</th></tr></thead>
@@ -57,13 +61,33 @@ export function EvidenceView() {
                 <tr key={s.id} id={s.id}>
                   <th scope="row" className="font-mono text-navy">{s.id}</th><td>{s.entity}</td><td>{s.evidence}</td><td>{s.classification}</td><td className="text-[12.5px]">{s.quality}</td>
                   <td>{s.establishes}</td><td className="num whitespace-nowrap">{s.date}</td>
-                  <td><a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={`Open source ${s.id}: ${s.evidence}`} className="break-all text-teal underline">{new URL(s.url).hostname.replace(/^www\./, "")}</a></td>
+                  <td><a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={`Open source ${s.id}: ${s.evidence}`} className="break-all text-teal underline">{new URL(s.url).hostname.replace(/^www\./, "")}</a>{s.workbookUrl && <span className="block text-[11px] text-mute">Canonical link; workbook recorded a different URL (workbook unchanged).</span>}</td>
                 </tr>
               ))}
               {rows.length === 0 && <tr><td colSpan={8} className="py-6 text-center text-mute">No records match these filters.</td></tr>}
             </tbody>
           </table>
         </div>
+      </Section>
+
+      <Section title="Supplemental public announcements (X01–X03)" id="supplemental" aside={<span className="text-[12px] text-mute">Added after the workbook · not part of the original 18 records</span>}>
+        <p className="mb-2 text-[12.5px] text-mute" role="status" aria-live="polite" data-testid="supplemental-count">Showing {suppRows.length} of {SUPPLEMENTAL_SOURCES.length} supplemental records</p>
+        <div className="card overflow-x-auto" tabIndex={0}>
+          <table className="tbl min-w-[900px]">
+            <thead><tr><th>ID</th><th>Entity</th><th>Evidence</th><th>Source type</th><th>Evidence quality</th><th>What it states</th><th>Publication date</th><th>Link checked</th><th>Source</th></tr></thead>
+            <tbody>
+              {suppRows.map((s) => (
+                <tr key={s.id} id={s.id}>
+                  <th scope="row" className="font-mono text-navy">{s.id}</th><td>{s.entity}</td><td>{s.evidence}</td><td>{s.classification}</td><td className="text-[12.5px]">{s.quality}</td>
+                  <td>{s.establishes}</td><td className="num whitespace-nowrap">{s.date}</td><td className="num whitespace-nowrap">{s.viewed}</td>
+                  <td><a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={`Open source ${s.id}: ${s.evidence}`} className="break-all text-teal underline">{new URL(s.url).hostname.replace(/^www\./, "")}</a></td>
+                </tr>
+              ))}
+              {suppRows.length === 0 && <tr><td colSpan={9} className="py-4 text-center text-mute">No supplemental records match these filters.</td></tr>}
+            </tbody>
+          </table>
+        </div>
+        <div className="mt-2"><Notice title="Company announcements only.">These are vendor-published announcements of products (two of them in beta). They are not independent verification of adoption, customers, ARR, pricing or profitability. “Link checked” records when the URL resolved; it is not a date the content was audited.</Notice></div>
       </Section>
 
       <Section title="Sourced metrics → evidence" id="metrics" aside={<span className="text-[12px] text-mute">Workbook sheet “Historical Inputs”</span>}>
@@ -99,6 +123,8 @@ export function EvidenceView() {
         <div className="card mt-3 p-3 text-[13.5px]">
           <h3 className="mb-1 font-sans text-[14px] font-semibold">Limitations and research cutoff</h3>
           <ul className="list-disc space-y-1 pl-5">
+            <li><strong>Supplemental evidence:</strong> X01–X03 are company announcements added after the workbook was built. They are kept separate from the 18 original records and are not used in any calculation.</li>
+            <li><strong>Dates:</strong> “Evidence date” is as recorded in the workbook (observation, publication or date viewed, per record). Supplemental records show publication date and link-checked date separately.</li>
             <li><strong>Research cutoff:</strong> 2 November 2026. Public material on or before this date; dates for undated pages are the date viewed.</li>
             {NOTES.readme.filter(([k]) => ["Not a TVG return target", "Not a live offer", "Economics", "Public gaps", "Scope exclusions", "Primary vs secondary", "Exit net debt"].includes(k)).map(([k, v]) => <li key={k}><strong>{k}:</strong> {v}</li>)}
             <li><strong>Returns:</strong> gross, before fees, taxes and FX; no preferred rights, liquidation waterfall, anti-dilution or participation modeled.</li>
@@ -111,6 +137,7 @@ export function EvidenceView() {
       </Section>
 
       <Section title="Original documents" id="downloads" aside={<span className="text-[12px] text-mute">Unmodified originals · SHA-256 shown for verification</span>}>
+        <div className="mb-3"><StaticDownloadsNotice modified={modified} /></div>
         <ul className="grid gap-3 md:grid-cols-2">
           {DOWNLOADS.map((d) => (
             <li key={d.file} className="card p-3">

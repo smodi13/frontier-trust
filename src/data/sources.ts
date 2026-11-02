@@ -14,7 +14,20 @@ export interface SourceRecord {
   quality: string;
   /** ISO date used for sorting/filtering; null when the workbook gives no exact day. */
   isoDate: string | null;
+  /** "original" = workbook Sources sheet (18 records); "supplemental" = added after the workbook. */
+  collection: "original" | "supplemental";
+  /** URL exactly as recorded in the workbook, kept when the displayed URL is a canonical override. */
+  workbookUrl?: string;
+  /** Supplemental records only: what kind of date `date` is, and when the link was last checked. */
+  dateKind?: "Publication date";
+  viewed?: string;
 }
+
+/** Canonical display destinations. The workbook itself is never modified; these override only what the app links to. */
+export const URL_OVERRIDES: Record<string, string> = {
+  S14: "https://www.otpp.com/en-ca/about-us/news-and-insights/2026/ontario-teachers-delivers-total-fund-net-return-in-first-half-of-2026/",
+  S18: "https://www.chainguard.dev/unchained/adopt-hardened-containers-without-changing-your-pipelines-tooling-or-environment",
+};
 
 /** Transparent grouping of workbook classifications into evidence-quality labels (see methodology on /evidence). */
 export const QUALITY_BY_CLASSIFICATION: Record<string, string> = {
@@ -38,10 +51,27 @@ const iso = (d: string) => (/^\d{4}-\d{2}-\d{2}$/.test(d) ? d : null);
 
 export const SOURCES: SourceRecord[] = wb.sources.map((s) => ({
   ...s,
+  url: URL_OVERRIDES[s.id] ?? s.url,
+  workbookUrl: URL_OVERRIDES[s.id] && URL_OVERRIDES[s.id] !== s.url ? s.url : undefined,
+  collection: "original" as const,
   quality: QUALITY_BY_CLASSIFICATION[s.classification] ?? "Unclassified",
   isoDate: iso(s.date),
 }));
-export const SOURCE_BY_ID = Object.fromEntries(SOURCES.map((s) => [s.id, s])) as Record<string, SourceRecord>;
+/** Supplemental public announcements (X-series IDs), kept separate from the 18 original workbook records. */
+const LINK_CHECKED = "2026-11-02";
+const supp = (n: number, evidence: string, establishes: string, slug: string): SourceRecord => ({
+  id: `X0${n}`, entity: "Chainguard", evidence, classification: "Company announcement", establishes,
+  date: "2026-10-14", isoDate: "2026-10-14", dateKind: "Publication date", viewed: LINK_CHECKED,
+  url: `https://www.chainguard.dev/unchained/${slug}`,
+  quality: "Vendor announcement (no adoption or revenue evidence)", collection: "supplemental",
+});
+export const SUPPLEMENTAL_SOURCES: SourceRecord[] = [
+  supp(1, "Chainguard Harness announcement (Oct 2026)", "Company introduced an AI-based vulnerability hunting and remediation offering; the initial announcement opened a beta waitlist.", "introducing-chainguard-harness"),
+  supp(2, "Chainguard Workspaces announcement (Oct 2026)", "Company announced isolated microVM-based development environments for developers and AI coding agents.", "introducing-chainguard-workspaces"),
+  supp(3, "Chainguard Checks announcement (Oct 2026)", "Company announced a beta product enabling developers and AI agents to run code validation checks earlier in development workflows.", "introducing-chainguard-checks"),
+];
+export const ALL_SOURCES = [...SOURCES, ...SUPPLEMENTAL_SOURCES];
+export const SOURCE_BY_ID = Object.fromEntries(ALL_SOURCES.map((s) => [s.id, s])) as Record<string, SourceRecord>;
 
 export interface HistoricalInput {
   company: string; measure: string; dataType: string; value: number; units: string; date: string;

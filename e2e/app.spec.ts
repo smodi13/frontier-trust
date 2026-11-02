@@ -121,3 +121,51 @@ test("mobile navigation menu works", async ({ page, isMobile }) => {
   await page.getByRole("link", { name: "Evidence Center" }).click();
   await expect(page).toHaveURL(/\/evidence/);
 });
+
+test("evidence separates original and supplemental records with canonical links", async ({ page }) => {
+  await page.goto("/evidence");
+  await expect(page.getByTestId("evidence-count")).toContainText("18 of 18 original");
+  await expect(page.getByTestId("supplemental-count")).toContainText("3 of 3");
+  await expect(page.getByRole("heading", { name: /Original workbook evidence register/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Supplemental public announcements/ })).toBeVisible();
+  await expect(page.locator("#S14 a[target=_blank]")).toHaveAttribute("href", "https://www.otpp.com/en-ca/about-us/news-and-insights/2026/ontario-teachers-delivers-total-fund-net-return-in-first-half-of-2026/");
+  await expect(page.locator("#S18 a[target=_blank]")).toHaveAttribute("href", "https://www.chainguard.dev/unchained/adopt-hardened-containers-without-changing-your-pipelines-tooling-or-environment");
+  for (const [id, slug] of [["X01", "harness"], ["X02", "workspaces"], ["X03", "checks"]]) {
+    await expect(page.locator(`#${id} a[target=_blank]`)).toHaveAttribute("href", `https://www.chainguard.dev/unchained/introducing-chainguard-${slug}`);
+  }
+  await expect(page.getByText("not independent verification").first()).toBeVisible();
+  await page.getByLabel("Company / entity").selectOption("Vanta");
+  await expect(page.getByTestId("supplemental-count")).toContainText("0 of 3");
+});
+
+test("chainguard page and monitoring show the October 2026 announcements", async ({ page }) => {
+  await page.goto("/companies/chainguard");
+  await expect(page.getByRole("heading", { name: /Supplemental company announcements/ })).toBeVisible();
+  await expect(page.getByText("Not evidence of traction.")).toBeVisible();
+  await page.goto("/monitoring");
+  await expect(page.getByText("Latest dated entry: 2026-10-14")).toBeVisible();
+  await page.getByLabel("Origin").selectOption("supplemental");
+  await expect(page.getByTestId("event-count")).toContainText("3 of");
+  await expect(page.getByText("isolated microVM-based development environments")).toBeVisible();
+});
+
+test("model limitations appear on underwriting and committee", async ({ page }) => {
+  for (const path of ["/underwriting", "/committee"]) {
+    await page.goto(path);
+    await expect(page.getByRole("heading", { name: "Model limitations and transaction structure" })).toBeVisible();
+    await expect(page.getByText("not a Teachers' Venture Growth (TVG) requirement")).toBeVisible();
+    await expect(page.getByText(/liquidation waterfalls are excluded/)).toBeVisible();
+  }
+});
+
+test("editing assumptions shows the static-downloads notice; originals stay byte-identical", async ({ page, request }) => {
+  await page.goto("/allocation");
+  await expect(page.getByText("Downloads have not changed.")).toHaveCount(0);
+  await page.getByLabel("Pre-money valuation", { exact: true }).first().fill("3000");
+  await expect(page.getByText("Downloads have not changed.").first()).toBeVisible();
+  await expect(page.getByText(/does not update from website inputs/).first()).toBeVisible();
+  for (const d of downloads) {
+    const buf = await (await request.get(`/downloads/${d.file}`)).body();
+    expect(createHash("sha256").update(buf).digest("hex")).toBe(d.sha256);
+  }
+});

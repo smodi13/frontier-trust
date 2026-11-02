@@ -8,7 +8,7 @@ export default function Page() {
   return (
     <>
       <PageHeader eyebrow="7 · Portfolio monitoring" title="Portfolio Monitoring">
-        A manual monitoring workspace seeded only with facts from the research register. Every entry shows its date, classification, provenance and update mode.
+        A manual monitoring workspace seeded only with the original research register and three clearly separated supplemental company announcements. Every entry shows its date, classification, provenance and update mode.
       </PageHeader>
       <MonitoringView />
     </>

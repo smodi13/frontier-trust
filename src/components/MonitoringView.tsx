@@ -50,7 +50,7 @@ export function MonitoringView() {
     <>
       <div className="mb-5 grid gap-3 md:grid-cols-3">
         <Notice tone="info" title="Update mode: manual.">No automated feed, scraper or alert is connected. Nothing on this page updates by itself; it reflects the research register as of 2 Nov 2026 plus anything you add below.</Notice>
-        <Notice tone="info" title="Research cutoff:">2 Nov 2026 (public material on or before this date). Latest dated register entry: {SEEDED_EVENTS.filter((e) => /^\d{4}-\d{2}-\d{2}$/.test(e.dateLabel)).at(-1)?.dateLabel}.</Notice>
+        <Notice tone="info" title="Research cutoff:">2 Nov 2026 (public material on or before this date). Latest dated entry: {SEEDED_EVENTS.filter((e) => /^\d{4}-\d{2}-\d{2}$/.test(e.dateLabel)).at(-1)?.dateLabel} (supplemental company announcements).</Notice>
         <Notice tone="info" title="User entries are unverified.">Entries you add are stored in this browser only, are labeled as user-entered, and are not evidence.</Notice>
       </div>
 
@@ -102,7 +102,7 @@ export function MonitoringView() {
           <label className="flex flex-col gap-1 text-[12px] font-medium text-slate">Classification
             <select className={field} value={category} onChange={(e) => setCategory(e.target.value)}><option value="">All</option>{EVENT_CATEGORIES.map((c) => <option key={c}>{c}</option>)}</select></label>
           <label className="flex flex-col gap-1 text-[12px] font-medium text-slate">Origin
-            <select className={field} value={origin} onChange={(e) => setOrigin(e.target.value)}><option value="">All</option><option value="register">Research register</option><option value="user">User-entered</option></select></label>
+            <select className={field} value={origin} onChange={(e) => setOrigin(e.target.value)}><option value="">All</option><option value="register">Original research register</option><option value="supplemental">Supplemental announcements</option><option value="user">User-entered</option></select></label>
           <span className="text-[12.5px] text-mute" role="status" data-testid="event-count">{rows.length} of {all.length} entries</span>
         </form>
         <div className="card overflow-x-auto" tabIndex={0}>
@@ -116,7 +116,7 @@ export function MonitoringView() {
                     <td className="num whitespace-nowrap">{e.dateLabel}</td><td>{e.company}</td><td>{e.category}</td><td>{e.headline}</td>
                     <td>{s ? <><SourceRefs ids={[s.id]} /> <span className="text-[11.5px] text-mute">{s.classification}</span></> : <><KindBadge kind="hypothetical" label="User-entered" />{e.userUrl && <> <a className="text-teal underline" href={e.userUrl} target="_blank" rel="noopener noreferrer">link</a></>}</>}</td>
                     <td className="text-[12.5px]">{s ? s.quality : "Unverified (user)"}</td>
-                    <td className="text-[12.5px]">{e.origin === "register" ? "Manual · seeded from workbook research" : `Manual · added ${e.addedAt?.slice(0, 10) ?? "locally"}`}</td>
+                    <td className="text-[12.5px]">{e.origin === "register" ? "Manual · seeded from workbook research" : e.origin === "supplemental" ? "Manual · supplemental public announcement (vendor-published)" : `Manual · added ${e.addedAt?.slice(0, 10) ?? "locally"}`}</td>
                     <td>{e.origin === "user" && <button className="text-[12px] text-neg underline" aria-label={`Delete entry: ${e.headline}`} onClick={() => save(load().filter((x) => x.id !== e.id))}>Delete</button>}</td>
                   </tr>
                 );

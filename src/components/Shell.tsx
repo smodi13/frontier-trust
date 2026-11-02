@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { resetModel, useModel } from "@/state/store";
+import { StaticDownloadsNotice } from "./ui";
 
 const NAV = [
   { href: "/", label: "Investment Overview", n: "1" },
@@ -48,6 +49,11 @@ function ModelStatus() {
   );
 }
 
+function GlobalStaticNotice() {
+  const { modified } = useModel();
+  return modified ? <div className="mx-auto max-w-[1180px] px-4 pt-4 print:hidden lg:px-8"><StaticDownloadsNotice modified /></div> : null;
+}
+
 export function Shell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   return (
@@ -84,6 +90,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           <span className="font-semibold text-warn-ink">Illustrative: entry prices and forecasts are analyst assumptions, not offers or company guidance.</span>
           <ModelStatus />
         </div>
+        <GlobalStaticNotice />
         <main id="main" className="mx-auto max-w-[1180px] px-4 py-6 lg:px-8">{children}</main>
         <footer className="mx-auto max-w-[1180px] border-t border-line px-4 py-5 text-[11.5px] text-mute lg:px-8">
           Independent work sample using public information as of 2 Nov 2026. Not investment advice, not a valuation opinion, and not endorsed by or produced for

@@ -103,3 +103,35 @@ export function Legend() {
     </div>
   );
 }
+
+export function StaticDownloadsNotice({ modified }: { modified: boolean }) {
+  return (
+    <Notice tone={modified ? "warn" : "info"} title={modified ? "Downloads have not changed." : "Downloads are fixed snapshots."}>
+      {modified
+        ? "You have edited assumptions on this website. The downloadable Excel model, executive brief, memorandum and presentation are unchanged original research snapshots; the workbook does not update from website inputs."
+        : "The downloadable Excel model, PDFs and presentation are fixed research snapshots. Edits made on this website never change them, and the workbook does not update from website inputs."}
+    </Notice>
+  );
+}
+
+const LIMITS_LIST = [
+  "The 2026 ARR inputs are observation-date snapshots (Vanta, 29 Apr 2026; Chainguard, Jun 2026 third-party estimate), not necessarily December 2026 ending ARR.",
+  "The forecast is an illustrative model built on those dated ARR anchors, not a company projection or guidance.",
+  "The revenue proxy (a fixed share of ARR) is not reported GAAP revenue.",
+  "EBITDA and free cash flow are calculated proxies from assumed cost ratios, not company-disclosed results.",
+  "The 20% gross IRR hurdle is an analyst assumption, not a Teachers' Venture Growth (TVG) requirement.",
+  "The equity model assumes simple pro rata common-equity economics; preferred equity rights and liquidation waterfalls are excluded.",
+  "Actual current capitalization and outstanding claims have not been verified.",
+  "Investor-specific fees, taxes and FX are not modeled; returns are gross.",
+  "Entry prices are hypothetical. Nothing here implies that any investment is available or that shares can be bought at these prices.",
+];
+
+export function ModelLimitations() {
+  return (
+    <Section title="Model limitations and transaction structure" id="limitations">
+      <ul className="card list-disc space-y-1 py-3 pl-8 pr-4 text-[13.5px]">
+        {LIMITS_LIST.map((t) => <li key={t}>{t}</li>)}
+      </ul>
+    </Section>
+  );
+}

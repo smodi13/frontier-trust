@@ -1,4 +1,4 @@
-import { HISTORICAL, SOURCE_BY_ID } from "./sources";
+import { HISTORICAL, SOURCE_BY_ID, SUPPLEMENTAL_SOURCES } from "./sources";
 
 export const EVENT_CATEGORIES = [
   "ARR milestone", "Capital raising", "Valuation mark", "Competitive development", "Product announcement", "Customer reference",
@@ -14,7 +14,7 @@ export interface MonitorEvent {
   dateLabel: string;
   sortKey: string;
   headline: string;
-  origin: "register" | "user";
+  origin: "register" | "supplemental" | "user";
   sourceId?: string;
   userUrl?: string;
   addedAt?: string; // ISO timestamp, user entries only
@@ -51,6 +51,7 @@ export const SEEDED_EVENTS: MonitorEvent[] = [
   ev("e-va-prod", "Vanta", "Product announcement", "S16", "GRC product page: continuous controls monitoring and workflows (vendor perspective)", "Viewed 2026-11-02"),
   ev("e-dk-docs", "Docker", "Product announcement", "S12", "Docker hardened-image tiers documented: Free, Select and Enterprise", "Viewed 2026-11-02"),
   ev("e-ch-price", "Chainguard", "Product announcement", "S13", "Chainguard pricing page: based on engineering team size and multiple products", "Viewed 2026-11-02"),
+  ...SUPPLEMENTAL_SOURCES.map((x): MonitorEvent => ({ id: `e-${x.id}`, company: x.entity, category: "Product announcement", dateLabel: x.date, sortKey: x.date, headline: x.establishes, origin: "supplemental", sourceId: x.id })),
 ].sort((a, b) => a.sortKey.localeCompare(b.sortKey) || a.id.localeCompare(b.id));
 
 export interface Watch { company: string; item: string; why: string; sourceId: string }

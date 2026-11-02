@@ -10,7 +10,7 @@ import { ArrChart, FcfChart } from "./Charts";
 import { LockedField, NumberField } from "./Field";
 import { ProbabilityFields } from "./ProbabilityFields";
 import { Segmented } from "./Selectors";
-import { KindBadge, Legend, Notice, Section, SourceRefs } from "./ui";
+import { KindBadge, Legend, ModelLimitations, Notice, Section, SourceRefs } from "./ui";
 
 const CASE_LABEL: Record<CaseId, string> = { bear: "Bear", base: "Base", bull: "Bull" };
 type Num = Exclude<keyof CompanyInputs, "scenarios" | "startArr">;
@@ -175,6 +175,7 @@ export function UnderwritingView() {
           </Section>
         </div>
       </div>
+      <ModelLimitations />
     </>
   );
 }
