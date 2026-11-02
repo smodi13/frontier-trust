@@ -1,0 +1,30 @@
+[
+ {
+  "file": "Frontier_Trust_Executive_Investment_Brief.pdf",
+  "title": "Executive investment brief",
+  "description": "PDF, 2 pages",
+  "bytes": 31515,
+  "sha256": "1e728792c14a1ebb512c99efdf57381b244c43f4290f5845a15227986418227f"
+ },
+ {
+  "file": "Frontier_Trust_Investment_Committee_Memorandum.pdf",
+  "title": "Investment committee memorandum",
+  "description": "PDF, 8 pages",
+  "bytes": 49306,
+  "sha256": "39113cff4ec1a40ff970a336fbc34c39b67e9d0bb07e4883091328dccb2849e7"
+ },
+ {
+  "file": "Frontier_Trust_Formula_Driven_Underwriting.xlsx",
+  "title": "Formula-driven underwriting model",
+  "description": "Excel workbook, 12 sheets (authoritative computational specification)",
+  "bytes": 47417,
+  "sha256": "a036af1ebcf5a7b692c79c60404b5548689b8a3144cde464a5645ca6969efb94"
+ },
+ {
+  "file": "Frontier_Trust_Investment_Committee_Presentation.pptx",
+  "title": "Investment committee presentation",
+  "description": "PowerPoint, 10 slides",
+  "bytes": 50488,
+  "sha256": "a4046928eb634037d02a6c32e4203dd5289d7f56f5f080eae14652a93e5851a5"
+ }
+]

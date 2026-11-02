@@ -1,0 +1,770 @@
+{
+ "sources": [
+  {
+   "id": "S01",
+   "entity": "TVG",
+   "evidence": "Investment strategy",
+   "classification": "Official",
+   "establishes": "Strategy, investment range, global remit",
+   "date": "2026-11-02",
+   "url": "https://www.otpp.com/en-ca/investments/our-investments/teachers-venture-growth/"
+  },
+  {
+   "id": "S02",
+   "entity": "Vanta",
+   "evidence": "2026 ARR and customer count",
+   "classification": "Company disclosure",
+   "establishes": "Crossed $300M ARR and 16,000 customers (Apr 29 2026)",
+   "date": "2026-04-29",
+   "url": "https://www.vanta.com/resources/vanta-crosses-300m-in-arr-as-growth-accelerates"
+  },
+  {
+   "id": "S03",
+   "entity": "Vanta",
+   "evidence": "2025 equity valuation and round",
+   "classification": "Company disclosure",
+   "establishes": "$4.15B post-money, $150M Series D (Jul 23 2025)",
+   "date": "2025-07-23",
+   "url": "https://www.vanta.com/resources/vanta-announces-series-d"
+  },
+  {
+   "id": "S04",
+   "entity": "Vanta",
+   "evidence": "2025 ARR estimate and 2026 growth",
+   "classification": "Third-party estimate",
+   "establishes": "Sacra estimated $250M year-end 2025 ARR; $300M April 2026",
+   "date": "2026-04-30",
+   "url": "https://sacra.com/research/vanta-at-300m-year/"
+  },
+  {
+   "id": "S05",
+   "entity": "Vanta",
+   "evidence": "Market review",
+   "classification": "Independent / excerpt",
+   "establishes": "Forrester Q2 2026 Leader; excerpt reproduced by Vanta",
+   "date": "2026-05-20",
+   "url": "https://www.vanta.com/reports/forrester-wave-grc"
+  },
+  {
+   "id": "S06",
+   "entity": "Vanta",
+   "evidence": "NRR and growth reporting",
+   "classification": "Press interview",
+   "establishes": "Fortune Apr 2026; no independently audited cohort statements",
+   "date": "2026-04-29",
+   "url": "https://fortune.com/2026/04/29/exclusive-vanta-arr-300-million-sequoia-shadow-ai-claude-cursor/"
+  },
+  {
+   "id": "S07",
+   "entity": "Chainguard",
+   "evidence": "Series D and 2025 ARR",
+   "classification": "Company release",
+   "establishes": "$356M raise; $3.5B valuation; $40M ARR (Apr 2025)",
+   "date": "2025-04-23",
+   "url": "https://www.prnewswire.com/news-releases/chainguard-raises-356-million-in-series-d-funding-to-be-the-safe-source-for-all-open-source-302435220.html"
+  },
+  {
+   "id": "S08",
+   "entity": "Chainguard",
+   "evidence": "June 2026 ARR estimate",
+   "classification": "Third-party estimate",
+   "establishes": "Sacra estimated $100M ARR in June 2026",
+   "date": "2026-06 (estimate)",
+   "url": "https://sacra.com/c/chainguard/"
+  },
+  {
+   "id": "S09",
+   "entity": "Chainguard",
+   "evidence": "2025 growth financing",
+   "classification": "Company release",
+   "establishes": "$280M growth financing (Oct 23 2025), economics not disclosed",
+   "date": "2025-10-23",
+   "url": "https://www.prnewswire.com/news-releases/chainguard-announces-280-million-growth-financing-from-general-catalyst-to-usher-in-next-era-of-trusted-open-source-software-302592279.html"
+  },
+  {
+   "id": "S10",
+   "entity": "Chainguard",
+   "evidence": "Canva customer case",
+   "classification": "Vendor case study",
+   "establishes": "Customer use case, not independent contract diligence",
+   "date": "Undated; viewed 2026-11-02",
+   "url": "https://www.chainguard.dev/customers/canva-trusts-chainguard-to-eliminate-supply-chain-risk-for-its-platform-serving-260-million-monthly-users"
+  },
+  {
+   "id": "S11",
+   "entity": "Docker",
+   "evidence": "Hardened images free offering",
+   "classification": "Competitor announcement",
+   "establishes": "Open-sourced hardened images catalog Dec 17 2025",
+   "date": "2025-12-17",
+   "url": "https://www.docker.com/press-release/docker-makes-hardened-images-free-open-and-transparent-for-everyone/"
+  },
+  {
+   "id": "S12",
+   "entity": "Docker",
+   "evidence": "Current Docker feature tiers",
+   "classification": "Competitor documentation",
+   "establishes": "Free, Select and Enterprise hardened image tiers",
+   "date": "2026-11-02",
+   "url": "https://docs.docker.com/dhi/"
+  },
+  {
+   "id": "S13",
+   "entity": "Chainguard",
+   "evidence": "Pricing and product structure",
+   "classification": "Vendor primary",
+   "establishes": "Pricing based on engineering team and multiple products",
+   "date": "2026-11-02",
+   "url": "https://www.chainguard.dev/pricing"
+  },
+  {
+   "id": "S14",
+   "entity": "OTPP",
+   "evidence": "2026 investment disclosure",
+   "classification": "Institutional release",
+   "establishes": "Teachers 2026 H1 investment mix; not TVG return hurdle",
+   "date": "2026-08-10",
+   "url": "https://www.wip.otpp.com/en-ca/about-us/news-and-insights/2026/ontario-teachers-delivers-total-fund-net-return-in-first-half-of-2026/"
+  },
+  {
+   "id": "S15",
+   "entity": "Chainguard",
+   "evidence": "Platform value-add case",
+   "classification": "Independent customer hosting",
+   "establishes": "Google Cloud customer review of Chainguard product and architecture",
+   "date": "2026-11-02",
+   "url": "https://cloud.google.com/customers/chainguard"
+  },
+  {
+   "id": "S16",
+   "entity": "Vanta",
+   "evidence": "GRC product",
+   "classification": "Company website",
+   "establishes": "Continuous controls monitoring and workflows, vendor perspective",
+   "date": "2026-11-02",
+   "url": "https://www.vanta.com/products/grc"
+  },
+  {
+   "id": "S17",
+   "entity": "Chainguard",
+   "evidence": "Third party customer estimates",
+   "classification": "Press interview",
+   "establishes": "150+ customers disclosed April 2025; cohort data unavailable",
+   "date": "2025-04-23",
+   "url": "https://fortune.com/2025/04/23/exclusive-chainguard-secures-356-million-series-d-as-valuation-soars-to-3-5-billion/"
+  },
+  {
+   "id": "S18",
+   "entity": "Chainguard",
+   "evidence": "2026 product updates",
+   "classification": "Company announcement",
+   "establishes": "Packaging and compatibility updates",
+   "date": "2026-06-24",
+   "url": "https://main.chainguard.dev.chainguard.app/unchained/adopt-hardened-containers-without-changing-your-pipelines-tooling-or-environment"
+  }
+ ],
+ "historical": [
+  {
+   "company": "Vanta",
+   "measure": "2026 ARR run-rate",
+   "dataType": "Company disclosure",
+   "value": 300,
+   "units": "$m",
+   "date": "2026-04-29",
+   "sourceId": "S02",
+   "quality": "Company-reported",
+   "interpretation": "ARR milestone, not full-year revenue",
+   "url": "https://www.vanta.com/resources/vanta-crosses-300m-in-arr-as-growth-accelerates"
+  },
+  {
+   "company": "Vanta",
+   "measure": "Last equity valuation",
+   "dataType": "Company disclosure",
+   "value": 4150,
+   "units": "$m post-money",
+   "date": "2025-07-23",
+   "sourceId": "S03",
+   "quality": "Company-reported",
+   "interpretation": "Historical financing, not live price",
+   "url": "https://www.vanta.com/resources/vanta-announces-series-d"
+  },
+  {
+   "company": "Vanta",
+   "measure": "2025 YE ARR",
+   "dataType": "Third-party estimate",
+   "value": 250,
+   "units": "$m",
+   "date": "2025-12-31",
+   "sourceId": "S04",
+   "quality": "Estimated by Sacra",
+   "interpretation": "Use for context only, not audited",
+   "url": "https://sacra.com/research/vanta-at-300m-year/"
+  },
+  {
+   "company": "Vanta",
+   "measure": "Customers",
+   "dataType": "Company disclosure",
+   "value": 16000,
+   "units": "customers",
+   "date": "2026-04-29",
+   "sourceId": "S02",
+   "quality": "Company-reported",
+   "interpretation": "Unsegmented customer count",
+   "url": "https://www.vanta.com/resources/vanta-crosses-300m-in-arr-as-growth-accelerates"
+  },
+  {
+   "company": "Vanta",
+   "measure": "2025 Series D primary proceeds",
+   "dataType": "Company disclosure",
+   "value": 150,
+   "units": "$m",
+   "date": "2025-07-23",
+   "sourceId": "S03",
+   "quality": "Company-reported",
+   "interpretation": "Not current cash balance",
+   "url": "https://www.vanta.com/resources/vanta-announces-series-d"
+  },
+  {
+   "company": "Chainguard",
+   "measure": "June 2026 ARR run-rate",
+   "dataType": "Third-party estimate",
+   "value": 100,
+   "units": "$m",
+   "date": "2026-06 (estimate)",
+   "sourceId": "S08",
+   "quality": "Estimated by Sacra",
+   "interpretation": "Not disclosed 2026 booked ARR",
+   "url": "https://sacra.com/c/chainguard/"
+  },
+  {
+   "company": "Chainguard",
+   "measure": "2025 disclosed ARR",
+   "dataType": "Company disclosure",
+   "value": 40,
+   "units": "$m",
+   "date": "2025-04-23",
+   "sourceId": "S07",
+   "quality": "Company-reported",
+   "interpretation": "2025 milestone, different date",
+   "url": "https://www.prnewswire.com/news-releases/chainguard-raises-356-million-in-series-d-funding-to-be-the-safe-source-for-all-open-source-302435220.html"
+  },
+  {
+   "company": "Chainguard",
+   "measure": "Last equity valuation",
+   "dataType": "Company disclosure",
+   "value": 3500,
+   "units": "$m post-money",
+   "date": "2025-04-23",
+   "sourceId": "S07",
+   "quality": "Company-reported",
+   "interpretation": "Historical financing, not live price",
+   "url": "https://www.prnewswire.com/news-releases/chainguard-raises-356-million-in-series-d-funding-to-be-the-safe-source-for-all-open-source-302435220.html"
+  },
+  {
+   "company": "Chainguard",
+   "measure": "2025 Series D primary proceeds",
+   "dataType": "Company disclosure",
+   "value": 356,
+   "units": "$m",
+   "date": "2025-04-23",
+   "sourceId": "S07",
+   "quality": "Company-reported",
+   "interpretation": "Not current cash balance",
+   "url": "https://www.prnewswire.com/news-releases/chainguard-raises-356-million-in-series-d-funding-to-be-the-safe-source-for-all-open-source-302435220.html"
+  },
+  {
+   "company": "Chainguard",
+   "measure": "2025 growth financing amount",
+   "dataType": "Company disclosure",
+   "value": 280,
+   "units": "$m",
+   "date": "2025-10-23",
+   "sourceId": "S09",
+   "quality": "Company-reported",
+   "interpretation": "Terms unavailable; not assumed net debt",
+   "url": "https://www.prnewswire.com/news-releases/chainguard-announces-280-million-growth-financing-from-general-catalyst-to-usher-in-next-era-of-trusted-open-source-software-302592279.html"
+  },
+  {
+   "company": "Chainguard",
+   "measure": "Customer count lower bound",
+   "dataType": "Press interview",
+   "value": 150,
+   "units": "customers",
+   "date": "2025-04-23",
+   "sourceId": "S17",
+   "quality": "Press / vendor",
+   "interpretation": "150+ in 2025, not 2026 count",
+   "url": "https://fortune.com/2025/04/23/exclusive-chainguard-secures-356-million-series-d-as-valuation-soars-to-3-5-billion/"
+  }
+ ],
+ "globals": {
+  "checkSize": 100,
+  "hurdle": 0.2,
+  "holdYears": 5,
+  "probabilities": {
+   "bear": 0.25,
+   "base": 0.5,
+   "bull": 0.25
+  }
+ },
+ "companies": {
+  "Vanta": {
+   "entryPreMoney": 5000,
+   "dilution": 0.15,
+   "revenueRecognition": 0.95,
+   "grossMargin": 0.82,
+   "smStart": 0.42,
+   "rdStart": 0.3,
+   "gaStart": 0.18,
+   "smStep": 0.025,
+   "rdStep": 0.015,
+   "gaStep": 0.01,
+   "daPct": 0.03,
+   "capexPct": 0.025,
+   "nwcPct": 0.02,
+   "taxRate": 0.25
+  },
+  "Chainguard": {
+   "entryPreMoney": 4000,
+   "dilution": 0.2,
+   "revenueRecognition": 0.95,
+   "grossMargin": 0.75,
+   "smStart": 0.5,
+   "rdStart": 0.35,
+   "gaStart": 0.2,
+   "smStep": 0.03,
+   "rdStep": 0.02,
+   "gaStep": 0.01,
+   "daPct": 0.03,
+   "capexPct": 0.03,
+   "nwcPct": 0.02,
+   "taxRate": 0.25
+  }
+ },
+ "scenarios": {
+  "Vanta": {
+   "bear": {
+    "growth2027": 0.25,
+    "decay": 0.05,
+    "exitMultiple": 5,
+    "exitNetDebt": 150
+   },
+   "base": {
+    "growth2027": 0.4,
+    "decay": 0.05,
+    "exitMultiple": 8,
+    "exitNetDebt": 0
+   },
+   "bull": {
+    "growth2027": 0.55,
+    "decay": 0.05,
+    "exitMultiple": 11,
+    "exitNetDebt": -100
+   }
+  },
+  "Chainguard": {
+   "bear": {
+    "growth2027": 0.3,
+    "decay": 0.05,
+    "exitMultiple": 5,
+    "exitNetDebt": 300
+   },
+   "base": {
+    "growth2027": 0.6,
+    "decay": 0.05,
+    "exitMultiple": 9,
+    "exitNetDebt": 200
+   },
+   "bull": {
+    "growth2027": 0.8,
+    "decay": 0.08,
+    "exitMultiple": 13,
+    "exitNetDebt": 100
+   }
+  }
+ },
+ "opportunities": [
+  {
+   "name": "Vanta",
+   "region": "US",
+   "segment": "Trust / GRC",
+   "url": "https://www.vanta.com",
+   "priority": "Deep diligence",
+   "limitation": "Public 2026 ARR, no live entry price"
+  },
+  {
+   "name": "Chainguard",
+   "region": "US",
+   "segment": "Secure open source",
+   "url": "https://www.chainguard.dev",
+   "priority": "Deep diligence",
+   "limitation": "2026 revenue is a third-party estimate"
+  },
+  {
+   "name": "Drata",
+   "region": "US",
+   "segment": "Compliance automation",
+   "url": "https://drata.com",
+   "priority": "Competitive mapping",
+   "limitation": "Private financials and current valuation not verified"
+  },
+  {
+   "name": "Secureframe",
+   "region": "US",
+   "segment": "Compliance automation",
+   "url": "https://secureframe.com",
+   "priority": "Competitive mapping",
+   "limitation": "Stage and capital access to verify"
+  },
+  {
+   "name": "Sprinto",
+   "region": "India",
+   "segment": "Compliance automation",
+   "url": "https://sprinto.com",
+   "priority": "Global mapping",
+   "limitation": "Stage and capital access to verify"
+  },
+  {
+   "name": "Scrut Automation",
+   "region": "India",
+   "segment": "Risk / compliance",
+   "url": "https://www.scrut.io",
+   "priority": "Global mapping",
+   "limitation": "Stage and capital access to verify"
+  },
+  {
+   "name": "Anecdotes",
+   "region": "Israel / US",
+   "segment": "Compliance data",
+   "url": "https://www.anecdotes.ai",
+   "priority": "Competitive mapping",
+   "limitation": "Stage and capital access to verify"
+  },
+  {
+   "name": "Hyperproof",
+   "region": "US",
+   "segment": "Compliance operations",
+   "url": "https://hyperproof.io",
+   "priority": "Competitive mapping",
+   "limitation": "Stage and capital access to verify"
+  },
+  {
+   "name": "OneTrust",
+   "region": "US",
+   "segment": "Privacy / GRC",
+   "url": "https://www.onetrust.com",
+   "priority": "Incumbent benchmark",
+   "limitation": "Investment eligibility and deal terms to verify"
+  },
+  {
+   "name": "AuditBoard",
+   "region": "US",
+   "segment": "Audit / risk",
+   "url": "https://auditboard.com",
+   "priority": "Incumbent benchmark",
+   "limitation": "Corporate ownership and investability to verify"
+  },
+  {
+   "name": "Snyk",
+   "region": "US / UK",
+   "segment": "Developer security",
+   "url": "https://snyk.io",
+   "priority": "Adjacent security",
+   "limitation": "Capital access and valuation to verify"
+  },
+  {
+   "name": "Semgrep",
+   "region": "US",
+   "segment": "Code security",
+   "url": "https://semgrep.dev",
+   "priority": "Adjacent security",
+   "limitation": "Financial quality and valuations to verify"
+  },
+  {
+   "name": "Cloudsmith",
+   "region": "UK",
+   "segment": "Artifact supply chain",
+   "url": "https://cloudsmith.com",
+   "priority": "Global mapping",
+   "limitation": "Capital access and stage to verify"
+  },
+  {
+   "name": "Sysdig",
+   "region": "US",
+   "segment": "Cloud security",
+   "url": "https://sysdig.com",
+   "priority": "Competitive mapping",
+   "limitation": "Stage and capital access to verify"
+  },
+  {
+   "name": "Aikido Security",
+   "region": "Europe",
+   "segment": "Developer security",
+   "url": "https://www.aikido.dev",
+   "priority": "Global mapping",
+   "limitation": "Stage and capital access to verify"
+  },
+  {
+   "name": "Cyera",
+   "region": "Israel / US",
+   "segment": "Data security",
+   "url": "https://www.cyera.io",
+   "priority": "Adjacent security",
+   "limitation": "Different segment and scale, must verify"
+  }
+ ],
+ "risks": [
+  {
+   "company": "Vanta",
+   "domain": "Revenue quality",
+   "failure": "ARR is not recognized revenue; large customer growth could mask cohort leakage",
+   "evidence": "16,000 customers and >$300M ARR disclosed",
+   "requirement": "Request signed ARR bridge, monthly cohort NRR/GRR and billing to revenue tie",
+   "consequence": "STOP without reconciled SaaS KPIs",
+   "sourceId": "S02"
+  },
+  {
+   "company": "Vanta",
+   "domain": "Market & pricing",
+   "failure": "Point compliance workflows commoditize; enterprise GRC incumbents win strategic accounts",
+   "evidence": "Vendor controls monitoring and Forrester Wave positioning",
+   "requirement": "Interview 10 buyers/lost deals and evaluate price vs Drata/ServiceNow",
+   "consequence": "Reduce growth, terminal multiples",
+   "sourceId": "S05"
+  },
+  {
+   "company": "Vanta",
+   "domain": "Cross-sell",
+   "failure": "Market penetration may be startup-heavy rather than regulated enterprise",
+   "evidence": "Company discusses broader GRC AI offerings",
+   "requirement": "Segment ARR by size, product, geography, renewal economics",
+   "consequence": "Lower enterprise cross-sell assumptions",
+   "sourceId": "S16"
+  },
+  {
+   "company": "Vanta",
+   "domain": "Unit economics",
+   "failure": "No public gross margin, SBC, CAC payback or customer LTV verification",
+   "evidence": "Public financials absent",
+   "requirement": "Review audited financials, cohort profitability and cash burn",
+   "consequence": "No recommendation until financial evidence",
+   "sourceId": "S02"
+  },
+  {
+   "company": "Vanta",
+   "domain": "Entry price",
+   "failure": "2025 last disclosed post-money valuation is not 2026 tradable equity price",
+   "evidence": "$4.15B announced July 2025",
+   "requirement": "Seek live financing or firm secondary indication, full term sheet",
+   "consequence": "Observe max price from Returns sheet",
+   "sourceId": "S03"
+  },
+  {
+   "company": "Vanta",
+   "domain": "AI governance upside",
+   "failure": "AI compliance may be smaller or slower than top-down estimates imply",
+   "evidence": "Company positions AI as expansion driver",
+   "requirement": "Validate attach rates, budget holders, competitive procurement",
+   "consequence": "Do not use as unsupported growth kicker",
+   "sourceId": "S02"
+  },
+  {
+   "company": "Chainguard",
+   "domain": "Data quality",
+   "failure": "2026 $100M ARR is independent estimate, not formal company disclosure",
+   "evidence": "Sacra June 2026 estimate, 2025 official $40M",
+   "requirement": "Request monthly ARR ledger, cohorts and pipeline conversion",
+   "consequence": "Do not underwrite until confirmed",
+   "sourceId": "S08"
+  },
+  {
+   "company": "Chainguard",
+   "domain": "Commoditization",
+   "failure": "Docker's free hardened-image tier pressures free-to-paid conversion and price",
+   "evidence": "Docker free 1,000+ image announcement Dec 2025",
+   "requirement": "Win-loss calls, benchmark FIPS/SLAs/catalog economics",
+   "consequence": "Haircut exit multiple and gross margins",
+   "sourceId": "S11"
+  },
+  {
+   "company": "Chainguard",
+   "domain": "Competitive differentiation",
+   "failure": "Containers and libraries may or may not sustain a durable premium",
+   "evidence": "Canva uses Chainguard Containers and Libraries",
+   "requirement": "Technical PoC, security remediation SLA and migration cost evidence",
+   "consequence": "Re-underwrite churn and upsell",
+   "sourceId": "S10"
+  },
+  {
+   "company": "Chainguard",
+   "domain": "Financing structure",
+   "failure": "2025 $280M growth financing may create senior contractual claims",
+   "evidence": "Growth financing disclosed, terms absent",
+   "requirement": "Obtain facility terms, outstanding debt, covenants, redemption rights",
+   "consequence": "Reserve or block investment approval",
+   "sourceId": "S09"
+  },
+  {
+   "company": "Chainguard",
+   "domain": "Enterprise concentration",
+   "failure": "Customer count and revenue size may imply concentration",
+   "evidence": "150+ customers in Apr 2025 press interview",
+   "requirement": "Request top 20 customer ARR, top 10 exposure and gross churn",
+   "consequence": "Stress test concentration/downside",
+   "sourceId": "S17"
+  },
+  {
+   "company": "Chainguard",
+   "domain": "Sales efficiency",
+   "failure": "Developer-led procurement requires proof that sales capacity scales",
+   "evidence": "Company vendor technical products",
+   "requirement": "Review funnel, deployment time, GRR/NRR by vertical",
+   "consequence": "Raise required return if inefficient",
+   "sourceId": "S13"
+  },
+  {
+   "company": "Both",
+   "domain": "Security liability",
+   "failure": "A significant breach or compliance failure could impair trust-based products",
+   "evidence": "Cybersecurity and compliance positioning",
+   "requirement": "Review incidents, cyber coverage, audit history and contracts",
+   "consequence": "Downside equity value haircut",
+   "sourceId": "S12"
+  },
+  {
+   "company": "Both",
+   "domain": "Cap table/rights",
+   "failure": "Unknown preference stacks, warrants, option refresh and participation terms",
+   "evidence": "Only funding headline amounts publicly disclosed",
+   "requirement": "Obtain complete fully diluted capitalization & pref waterfall",
+   "consequence": "Block final investment recommendation",
+   "sourceId": "S03"
+  },
+  {
+   "company": "Both",
+   "domain": "Exit landscape",
+   "failure": "Public growth multiples may compress; strategic exits uncertain",
+   "evidence": "No verified live comparable pricing embedded",
+   "requirement": "Run IPO/M&A cases, public comps as-of decision date, FX and liquidity",
+   "consequence": "Maintain multiple stress table",
+   "sourceId": "S01"
+  }
+ ],
+ "notes": {
+  "readme": [
+   [
+    "Decision",
+    "Illustrative $100M direct growth equity investment in Vanta vs Chainguard."
+   ],
+   [
+    "Purpose",
+    "Determine whether either company clears an analyst-selected 20% 5-year gross IRR threshold and price accordingly."
+   ],
+   [
+    "Not a TVG return target",
+    "The 20% hurdle is explicitly an analyst assumption, NOT a disclosed OTPP/TVG requirement."
+   ],
+   [
+    "Not a live offer",
+    "Transaction prices are hypothetical and do not imply shares or allocations are accessible."
+   ],
+   [
+    "Economics",
+    "ARR snapshots are not GAAP revenues; revenue and FCF forecasts are illustrative proxies."
+   ],
+   [
+    "Public gaps",
+    "No cap tables, cohorts, accounting financials, net debt, liquidation preferences, taxes or access have been verified."
+   ],
+   [
+    "Model layout",
+    "Sources -> Historical Inputs -> Assumptions -> Forecasts -> Returns -> Valuation Matrix -> Dashboard -> QA."
+   ],
+   [
+    "Blue numbers",
+    "Hardcoded sourced numeric inputs and editable analyst assumptions; monetary inputs in USD millions."
+   ],
+   [
+    "Green numbers",
+    "Formulas pulling directly from another sheet."
+   ],
+   [
+    "Black numbers",
+    "Same-sheet calculations and derived financial values."
+   ],
+   [
+    "Yellow",
+    "Assumptions and sourced financial inputs; editable, with data provenance."
+   ],
+   [
+    "Formula policy",
+    "No hardcoded derived financial outputs in worksheet cells."
+   ],
+   [
+    "Scope exclusions",
+    "No liquidation waterfall, preferred conversion rights, participating prefs, currency hedging or fees."
+   ],
+   [
+    "Primary vs secondary",
+    "Primary investors receive newly issued equity; secondary purchases transfer existing shares."
+   ],
+   [
+    "Dilution",
+    "A separate cumulative ownership-retention assumption applies after entry through exit."
+   ],
+   [
+    "Exit net debt",
+    "Net debt or net cash at exit are analyst scenario assumptions, not reported company amounts."
+   ],
+   [
+    "Read with memo",
+    "Investment conclusion is conditional; this is not a recommendation to transact without actual diligence."
+   ]
+  ],
+  "historicalCautions": [
+   "Caution: Historical valuation and ARR dates do not match. Never claim dividing them is a priced transaction multiple.",
+   "No verified 2026 cap table, gross margin, retention, net cash, preferred stack, or debt terms available publicly."
+  ],
+  "assumptionNotes": [
+   "Source quality: all scenario growth, margin, multiples, debt adjustments and transaction values are analyst-created assumptions.",
+   "Exit net debt is not the disclosed $280M growth financing. Terms and outstanding claims must be diligence-verified."
+  ],
+  "returnsNotes": [
+   "Deal pricing is modeled, not confirmed. No seller availability, financing terms, preferred liquidation stack, options or warrants verified.",
+   "Return outputs are GROSS, before fees, taxes, FX, and fund-level economics. No TVG-specific hurdle is asserted.",
+   "Chainguard's $280M 2025 financing is not assumed to equal outstanding exit net debt."
+  ],
+  "dashboardNarrative": [
+   [
+    "Current screen",
+    "No hypothetical $100M primary investment at the modeled pre-money prices clears the illustrative 20% gross IRR threshold in the base case."
+   ],
+   [
+    "Priority 1",
+    "Vanta: move to diligence only if price approaches the model-derived maximum or new evidence strengthens underwriting."
+   ],
+   [
+    "Priority 2",
+    "Chainguard: selectively diligence product advantage and enterprise pricing under pressure from Docker free tier."
+   ],
+   [
+    "Not a live portfolio recommendation",
+    "No pricing access, confirmed current valuations, financial data room, fully diluted capitalization or liquidity terms were obtained."
+   ],
+   [
+    "Evidence gap",
+    "The two 2026 ARR anchors differ materially in quality: Vanta company disclosure vs Chainguard Sacra estimate."
+   ],
+   [
+    "Investor context",
+    "TVG writes $50-$250M initial checks (S01), which makes transaction-level pricing, rights and scenario return sensitivity essential."
+   ]
+  ],
+  "disclaimer": "Analyst-author disclaimer: independently produced case study; no affiliation with OTPP, Vanta, or Chainguard.",
+  "oppNote": "Sector map is an idea-generation universe, not 16 independently diligenced investment opportunities.",
+  "oppHeader": [
+   "INITIAL MARKET COVERAGE | NOT A DEAL PIPELINE",
+   "Initial comparison set for market mapping. Investment stage, price and accessibility NOT validated for non-focus companies."
+  ]
+ }
+}
