@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
 import { DOWNLOADS, downloadHref } from "@/data/downloads";
-import { DEALS, PEERS, VAL_NOTES, dateGapDays, dealType } from "@/data/valuation";
+import { DEALS, PEERS, RAPID7_CAVEAT, VAL_NOTES, dateGapDays, dealType, idForUrl, peerSourceIds } from "@/data/valuation";
 import { COMPANY_IDS, COMPANY_LABEL, fmtNum, fmtPct, fmtUsd, fmtX, peerMultiple, peerStats, rawQuotient, reverseUnderwrite, type ReverseUnderwriting } from "@/engine";
 import { resetModel, useModel } from "@/state/store";
-import { KindBadge, Notice, Section, StaticDownloadsNotice } from "./ui";
+import { KindBadge, LinkStatusBadge, Notice, Section, SourceRefs, StaticDownloadsNotice } from "./ui";
 
 const stats = peerStats(PEERS); // fixed 2 Nov 2026 inputs → computed here, never stored
 const maxMultiple = stats.high;
@@ -49,25 +49,27 @@ export function ValuationEvidenceView() {
             <caption className="sr-only">Eight public market comparables with enterprise value, TTM revenue and calculated EV to TTM revenue</caption>
             <thead><tr><th>Company</th><th>Ticker</th><th className="r">EV ($M)</th><th className="r">TTM revenue ($M)</th><th className="r">EV / TTM revenue</th><th className="r">TTM revenue growth (YoY)</th><th>Comparison category</th><th>Median set</th><th>Observed</th><th>Evidence</th><th>Limitation</th></tr></thead>
             <tbody>
-              {PEERS.map((p) => (
+              {PEERS.map((p) => {
+                const ids = peerSourceIds(p.ticker);
+                return (
                 <tr key={p.ticker} id={`peer-${p.ticker}`}>
                   <th scope="row" className="font-semibold text-navy">{p.company}</th><td className="font-mono">{p.ticker}</td>
-                  <td className="r num">{fmtNum(p.ev)}</td><td className="r num">{fmtNum(p.ttmRevenue, 1)}</td>
-                  <td className="r num font-semibold">{fmtX(peerMultiple(p), 2)}</td><td className="r num">{fmtPct(p.yoy)}</td>
+                  <td className="r num">{fmtNum(p.ev)} <SourceRefs ids={[ids.market]} /></td><td className="r num">{fmtNum(p.ttmRevenue, 1)} <SourceRefs ids={[ids.market]} /></td>
+                  <td className="r num font-semibold">{fmtX(peerMultiple(p), 2)}</td><td className="r num">{fmtPct(p.yoy)} <SourceRefs ids={[ids.operating]} /></td>
                   <td>{p.role}</td>
                   <td className="text-[12px]">{p.core ? <strong className="text-teal">Core peer</strong> : <span className="text-mute">Not in core median</span>}</td>
                   <td className="num whitespace-nowrap">{p.date}</td>
                   <td className="text-[12px]">
-                    <a href={p.quoteUrl} target="_blank" rel="noopener noreferrer" aria-label={`${p.company} market data source`} className="block text-teal underline">Market data ({host(p.quoteUrl)})</a>
-                    <a href={p.operatingUrl} target="_blank" rel="noopener noreferrer" aria-label={`${p.company} operating evidence`} className="block text-teal underline">Operating evidence ({host(p.operatingUrl)})</a>
+                    <div className="mb-1"><SourceRefs ids={[ids.market]} /> <a href={p.quoteUrl} target="_blank" rel="noopener noreferrer" aria-label={`${p.company} market data source`} className="text-teal underline">Market data ({host(p.quoteUrl)})</a> <LinkStatusBadge url={p.quoteUrl} /></div>
+                    <div><SourceRefs ids={[ids.operating]} /> <a href={p.operatingUrl} target="_blank" rel="noopener noreferrer" aria-label={`${p.company} operating evidence`} className="text-teal underline">Operating evidence ({host(p.operatingUrl)})</a> <LinkStatusBadge url={p.operatingUrl} /></div>
                   </td>
-                  <td className="text-[12.5px]">{p.caveat}</td>
+                  <td className="text-[12.5px]" data-testid={`caveat-${p.ticker}`}>{p.ticker === "RPD" ? RAPID7_CAVEAT : p.caveat}{p.ticker === "RPD" && <> <SourceRefs ids={[ids.operating]} /></>}</td>
                 </tr>
-              ))}
+              );})}
             </tbody>
           </table>
         </div>
-        <p className="mt-1.5 text-[12px] text-mute">EV and TTM revenue: {VAL_NOTES.inputSource} Revenue growth is the sourced TTM sales YoY figure. Peer equity valuations reflect different debt, cash, growth, FCF, dilution and company-specific risk.</p>
+        <p className="mt-1.5 text-[12px] text-mute">EV and TTM revenue: {VAL_NOTES.inputSource} Revenue growth is the sourced TTM sales YoY figure. Source IDs link to the V-series records in the Evidence Center. Peer equity valuations reflect different debt, cash, growth, FCF, dilution and company-specific risk.</p>
 
         <div className="mt-4 grid gap-4 lg:grid-cols-[1fr_1.2fr]">
           <div className="card p-3" data-testid="peer-stats">
@@ -110,7 +112,7 @@ export function ValuationEvidenceView() {
               {DEALS.map((d) => {
                 const gap = dateGapDays(d.priceDate, d.arrDate);
                 return (
-                  <tr key={d.transaction}>
+                  <tr key={d.transaction} data-testid={`deal-${d.target}-${d.priceDate}`}>
                     <th scope="row" className="font-semibold text-navy">{d.target}</th><td>{d.transaction}</td>
                     <td className="text-[12.5px]">{dealType(d.transaction)}</td>
                     <td className="r num">{fmtNum(d.price)}</td><td className="num whitespace-nowrap">{d.priceDate}</td>
@@ -119,8 +121,8 @@ export function ValuationEvidenceView() {
                     <td className="r num text-mute">{fmtX(rawQuotient(d.price, d.arr), 2)}</td>
                     <td className="text-[12.5px] font-medium">{d.validity}</td>
                     <td className="text-[12px]">
-                      <a href={d.priceUrl} target="_blank" rel="noopener noreferrer" aria-label={`${d.transaction}: price source`} className="block text-teal underline">Price ({host(d.priceUrl)})</a>
-                      {d.arrUrl !== d.priceUrl && <a href={d.arrUrl} target="_blank" rel="noopener noreferrer" aria-label={`${d.transaction}: ARR source`} className="block text-teal underline">ARR ({host(d.arrUrl)})</a>}
+                      <div className="mb-1"><SourceRefs ids={[idForUrl(d.priceUrl) ?? ""].filter(Boolean)} /> <a href={d.priceUrl} target="_blank" rel="noopener noreferrer" aria-label={`${d.transaction}: price source`} className="text-teal underline">Price ({host(d.priceUrl)})</a> <LinkStatusBadge url={d.priceUrl} /></div>
+                      {d.arrUrl !== d.priceUrl && <div><SourceRefs ids={[idForUrl(d.arrUrl) ?? ""].filter(Boolean)} /> <a href={d.arrUrl} target="_blank" rel="noopener noreferrer" aria-label={`${d.transaction}: ARR source`} className="text-teal underline">ARR ({host(d.arrUrl)})</a> <LinkStatusBadge url={d.arrUrl} /></div>}
                     </td>
                   </tr>
                 );

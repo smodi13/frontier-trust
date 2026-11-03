@@ -1,0 +1,201 @@
+{
+ "method": "Automated HTTP GET with a declared non-browser client (one request per hop, no retries, no bypass).",
+ "client": "FrontierTrustLinkCheck/1.0 (+https://github.com/smodi13/frontier-trust; automated, non-browser, low-volume)",
+ "results": {
+  "https://www.otpp.com/en-ca/investments/our-investments/teachers-venture-growth/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.vanta.com/resources/vanta-crosses-300m-in-arr-as-growth-accelerates": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.vanta.com/resources/vanta-announces-series-d": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://sacra.com/research/vanta-at-300m-year/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.vanta.com/reports/forrester-wave-grc": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://fortune.com/2026/04/29/exclusive-vanta-arr-300-million-sequoia-shadow-ai-claude-cursor/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.prnewswire.com/news-releases/chainguard-raises-356-million-in-series-d-funding-to-be-the-safe-source-for-all-open-source-302435220.html": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://sacra.com/c/chainguard/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.prnewswire.com/news-releases/chainguard-announces-280-million-growth-financing-from-general-catalyst-to-usher-in-next-era-of-trusted-open-source-software-302592279.html": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.chainguard.dev/customers/canva-trusts-chainguard-to-eliminate-supply-chain-risk-for-its-platform-serving-260-million-monthly-users": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.docker.com/press-release/docker-makes-hardened-images-free-open-and-transparent-for-everyone/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://docs.docker.com/dhi/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.chainguard.dev/pricing": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.otpp.com/en-ca/about-us/news-and-insights/2026/ontario-teachers-delivers-total-fund-net-return-in-first-half-of-2026/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://cloud.google.com/customers/chainguard": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.vanta.com/products/grc": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://fortune.com/2025/04/23/exclusive-chainguard-secures-356-million-series-d-as-valuation-soars-to-3-5-billion/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.chainguard.dev/unchained/adopt-hardened-containers-without-changing-your-pipelines-tooling-or-environment": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.chainguard.dev/unchained/introducing-chainguard-harness": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.chainguard.dev/unchained/introducing-chainguard-workspaces": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.chainguard.dev/unchained/introducing-chainguard-checks": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://stockanalysis.com/stocks/rpd/statistics/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://investors.rapid7.com/news/news-details/2026/Rapid7-Announces-Second-Quarter-2026-Financial-Results/default.aspx": {
+   "status": "restricted",
+   "http": 403,
+   "checkedAt": "2026-11-03"
+  },
+  "https://stockanalysis.com/stocks/tenb/statistics/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://investors.tenable.com/news-releases/news-release-details/tenable-announces-second-quarter-2026-financial-results": {
+   "status": "restricted",
+   "http": 403,
+   "checkedAt": "2026-11-03"
+  },
+  "https://stockanalysis.com/stocks/s/statistics/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://investors.sentinelone.com/financial-info/quarterly-results/default.aspx": {
+   "status": "restricted",
+   "http": 403,
+   "checkedAt": "2026-11-03"
+  },
+  "https://stockanalysis.com/stocks/vrns/statistics/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.sec.gov/Archives/edgar/data/1361113/000117184326004948/exh_991.htm": {
+   "status": "restricted",
+   "http": 403,
+   "checkedAt": "2026-11-03"
+  },
+  "https://stockanalysis.com/stocks/qlys/statistics/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.sec.gov/Archives/edgar/data/1107843/000110784326000034/qlys-20260804xex991.htm": {
+   "status": "restricted",
+   "http": 403,
+   "checkedAt": "2026-11-03"
+  },
+  "https://stockanalysis.com/stocks/okta/statistics/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.okta.com/en-ca/newsroom/press-releases/okta-announces-second-quarter-2027-financial-results/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://stockanalysis.com/stocks/zs/statistics/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.sec.gov/Archives/edgar/data/1713683/000171368326000156/zs-07312026_991.htm": {
+   "status": "restricted",
+   "http": 403,
+   "checkedAt": "2026-11-03"
+  },
+  "https://stockanalysis.com/stocks/crwd/statistics/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  },
+  "https://ir.crowdstrike.com/news-releases/news-release-details/crowdstrike-reports-second-quarter-fiscal-year-2027": {
+   "status": "restricted",
+   "http": 403,
+   "checkedAt": "2026-11-03"
+  },
+  "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm": {
+   "status": "restricted",
+   "http": 403,
+   "checkedAt": "2026-11-03"
+  },
+  "https://techcrunch.com/2026/03/11/google-completes-32b-acquisition-of-wiz/": {
+   "status": "accessible",
+   "http": 200,
+   "checkedAt": "2026-11-03"
+  }
+ }
+}

@@ -1,4 +1,5 @@
 import wb from "./workbook.json";
+import overrides from "./url-overrides.json";
 
 export type Kind = "company" | "estimate" | "press" | "assumption" | "hypothetical" | "calculated" | "independent";
 
@@ -24,10 +25,7 @@ export interface SourceRecord {
 }
 
 /** Canonical display destinations. The workbook itself is never modified; these override only what the app links to. */
-export const URL_OVERRIDES: Record<string, string> = {
-  S14: "https://www.otpp.com/en-ca/about-us/news-and-insights/2026/ontario-teachers-delivers-total-fund-net-return-in-first-half-of-2026/",
-  S18: "https://www.chainguard.dev/unchained/adopt-hardened-containers-without-changing-your-pipelines-tooling-or-environment",
-};
+export const URL_OVERRIDES: Record<string, string> = overrides;
 
 /** Transparent grouping of workbook classifications into evidence-quality labels (see methodology on /evidence). */
 export const QUALITY_BY_CLASSIFICATION: Record<string, string> = {

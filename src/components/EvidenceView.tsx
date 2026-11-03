@@ -3,9 +3,14 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { DOWNLOADS, downloadHref } from "@/data/downloads";
 import { HISTORICAL, NOTES, QUALITY_BY_CLASSIFICATION, SOURCES, SUPPLEMENTAL_SOURCES, kindOfDataType, type SourceRecord } from "@/data/sources";
+import { LINK_CHECK_METHOD, LINK_LABEL, LINK_CHECKS } from "@/data/linkchecks";
+import { NOT_ESTABLISHED, VALUATION_SOURCES, valuationQuality, type ValuationSource } from "@/data/valuation";
 import { useModel } from "@/state/store";
-import { KindBadge, Notice, Section, SourceRefs, StaticDownloadsNotice } from "./ui";
+import { KindBadge, LinkStatusBadge, Notice, Section, SourceRefs, StaticDownloadsNotice } from "./ui";
 
+type Filterable = Pick<SourceRecord, "id" | "entity" | "classification" | "quality" | "isoDate" | "evidence" | "establishes">;
+const asFilterable = (v: ValuationSource): Filterable => ({ id: v.id, entity: v.company, classification: v.classification, quality: valuationQuality(v), isoDate: v.observationDate ?? v.publicationDate, evidence: v.title, establishes: v.metric });
+const nd = (x: string | null | undefined) => x ?? NOT_ESTABLISHED;
 const uniq = (xs: string[]) => [...new Set(xs)].sort();
 const sel = "rounded border border-slate-400 bg-white px-2 py-1 text-[13px]";
 const kb = (n: number) => `${(n / 1024).toFixed(1)} KB`;
@@ -21,7 +26,7 @@ export function EvidenceView() {
   const { modified } = useModel();
   const match = useMemo(() => {
     const t = claim.trim().toLowerCase();
-    return (s: SourceRecord) => {
+    return (s: Filterable) => {
       if (entity && s.entity !== entity) return false;
       if (type && s.classification !== type) return false;
       if (quality && s.quality !== quality) return false;
@@ -33,18 +38,20 @@ export function EvidenceView() {
   }, [entity, type, quality, from, to, claim]);
   const rows = SOURCES.filter(match);
   const suppRows = SUPPLEMENTAL_SOURCES.filter(match);
+  const valRows = VALUATION_SOURCES.filter((v) => match(asFilterable(v)));
   const active = entity || type || quality || from || to || claim;
 
   return (
     <>
       <Section title="Original workbook evidence register (S01–S18)" id="register" aside={<span className="text-[12px] text-mute">Workbook sheet “Sources” · imported verbatim · as of 2 Nov 2026</span>}>
+        <div className="mb-3"><Notice tone="info" title="Link checks are a dated snapshot.">{LINK_CHECK_METHOD} Results: {(["accessible", "redirected", "restricted", "broken"] as const).map((k) => `${LINK_LABEL[k]} ${Object.values(LINK_CHECKS).filter((c) => c.status === k).length}`).join(" · ")}. “Access restricted / verification inconclusive” (typically HTTP 403) means the site declined an automated request: the link is neither verified nor shown to be broken, and the official source is retained.</Notice></div>
         <form role="search" aria-label="Filter evidence" className="card mb-3 flex flex-wrap items-end gap-3 p-3" onSubmit={(e) => e.preventDefault()}>
           <label className="flex flex-col gap-1 text-[12px] font-medium text-slate">Company / entity
-            <select className={sel} value={entity} onChange={(e) => setEntity(e.target.value)}><option value="">All</option>{uniq([...SOURCES, ...SUPPLEMENTAL_SOURCES].map((s) => s.entity)).map((x) => <option key={x}>{x}</option>)}</select></label>
+            <select className={sel} value={entity} onChange={(e) => setEntity(e.target.value)}><option value="">All</option>{uniq([...SOURCES, ...SUPPLEMENTAL_SOURCES, ...VALUATION_SOURCES.map(asFilterable)].map((s) => s.entity)).map((x) => <option key={x}>{x}</option>)}</select></label>
           <label className="flex flex-col gap-1 text-[12px] font-medium text-slate">Source type
-            <select className={sel} value={type} onChange={(e) => setType(e.target.value)}><option value="">All</option>{uniq([...SOURCES, ...SUPPLEMENTAL_SOURCES].map((s) => s.classification)).map((x) => <option key={x}>{x}</option>)}</select></label>
+            <select className={sel} value={type} onChange={(e) => setType(e.target.value)}><option value="">All</option>{uniq([...SOURCES, ...SUPPLEMENTAL_SOURCES, ...VALUATION_SOURCES.map(asFilterable)].map((s) => s.classification)).map((x) => <option key={x}>{x}</option>)}</select></label>
           <label className="flex flex-col gap-1 text-[12px] font-medium text-slate">Evidence quality
-            <select className={sel} value={quality} onChange={(e) => setQuality(e.target.value)}><option value="">All</option>{uniq([...SOURCES, ...SUPPLEMENTAL_SOURCES].map((s) => s.quality)).map((x) => <option key={x}>{x}</option>)}</select></label>
+            <select className={sel} value={quality} onChange={(e) => setQuality(e.target.value)}><option value="">All</option>{uniq([...SOURCES, ...SUPPLEMENTAL_SOURCES, ...VALUATION_SOURCES.map(asFilterable)].map((s) => s.quality)).map((x) => <option key={x}>{x}</option>)}</select></label>
           <label className="flex flex-col gap-1 text-[12px] font-medium text-slate">Evidence date from
             <input type="date" className={sel} value={from} onChange={(e) => setFrom(e.target.value)} /></label>
           <label className="flex flex-col gap-1 text-[12px] font-medium text-slate">to
@@ -56,16 +63,17 @@ export function EvidenceView() {
         <p className="mb-2 text-[12.5px] text-mute" role="status" aria-live="polite" data-testid="evidence-count">Showing {rows.length} of {SOURCES.length} original records{(from || to) && " (date filters exclude records without an exact date)"}</p>
         <div className="card overflow-x-auto" tabIndex={0}>
           <table className="tbl min-w-[980px]">
-            <thead><tr><th>ID</th><th>Entity</th><th>Evidence</th><th>Source type</th><th>Evidence quality</th><th>What it establishes</th><th>Evidence date</th><th>Source</th></tr></thead>
+            <thead><tr><th>ID</th><th>Entity</th><th>Evidence</th><th>Source type</th><th>Evidence quality</th><th>What it establishes</th><th>Evidence date</th><th>Source</th><th>Link check</th></tr></thead>
             <tbody>
               {rows.map((s) => (
                 <tr key={s.id} id={s.id}>
                   <th scope="row" className="font-mono text-navy">{s.id}</th><td>{s.entity}</td><td>{s.evidence}</td><td>{s.classification}</td><td className="text-[12.5px]">{s.quality}</td>
                   <td>{s.establishes}</td><td className="num whitespace-nowrap">{s.date}</td>
                   <td><a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={`Open source ${s.id}: ${s.evidence}`} className="break-all text-teal underline">{new URL(s.url).hostname.replace(/^www\./, "")}</a>{s.workbookUrl && <span className="block text-[11px] text-mute">Canonical link; workbook recorded a different URL (workbook unchanged).</span>}</td>
+                  <td><LinkStatusBadge url={s.url} /></td>
                 </tr>
               ))}
-              {rows.length === 0 && <tr><td colSpan={8} className="py-6 text-center text-mute">No records match these filters.</td></tr>}
+              {rows.length === 0 && <tr><td colSpan={9} className="py-6 text-center text-mute">No records match these filters.</td></tr>}
             </tbody>
           </table>
         </div>
@@ -75,20 +83,48 @@ export function EvidenceView() {
         <p className="mb-2 text-[12.5px] text-mute" role="status" aria-live="polite" data-testid="supplemental-count">Showing {suppRows.length} of {SUPPLEMENTAL_SOURCES.length} supplemental records</p>
         <div className="card overflow-x-auto" tabIndex={0}>
           <table className="tbl min-w-[900px]">
-            <thead><tr><th>ID</th><th>Entity</th><th>Evidence</th><th>Source type</th><th>Evidence quality</th><th>What it states</th><th>Publication date</th><th>Link checked</th><th>Source</th></tr></thead>
+            <thead><tr><th>ID</th><th>Entity</th><th>Evidence</th><th>Source type</th><th>Evidence quality</th><th>What it states</th><th>Publication date</th><th>Link checked</th><th>Source</th><th>Link check</th></tr></thead>
             <tbody>
               {suppRows.map((s) => (
                 <tr key={s.id} id={s.id}>
                   <th scope="row" className="font-mono text-navy">{s.id}</th><td>{s.entity}</td><td>{s.evidence}</td><td>{s.classification}</td><td className="text-[12.5px]">{s.quality}</td>
                   <td>{s.establishes}</td><td className="num whitespace-nowrap">{s.date}</td><td className="num whitespace-nowrap">{s.viewed}</td>
                   <td><a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={`Open source ${s.id}: ${s.evidence}`} className="break-all text-teal underline">{new URL(s.url).hostname.replace(/^www\./, "")}</a></td>
+                  <td><LinkStatusBadge url={s.url} /></td>
                 </tr>
               ))}
-              {suppRows.length === 0 && <tr><td colSpan={9} className="py-4 text-center text-mute">No supplemental records match these filters.</td></tr>}
+              {suppRows.length === 0 && <tr><td colSpan={10} className="py-4 text-center text-mute">No supplemental records match these filters.</td></tr>}
             </tbody>
           </table>
         </div>
         <div className="mt-2"><Notice title="Company announcements only.">These are vendor-published announcements of products (two of them in beta). They are not independent verification of adoption, customers, ARR, pricing or profitability. “Link checked” records when the URL resolved; it is not a date the content was audited.</Notice></div>
+      </Section>
+
+      <Section title="Valuation extension evidence register (V01–V18)" id="valuation-register" aside={<span className="text-[12px] text-mute">Market-comparables extension · separate from S01–S18 and X01–X03</span>}>
+        <p className="mb-2 text-[12.5px] text-mute" role="status" aria-live="polite" data-testid="valuation-count">Showing {valRows.length} of {VALUATION_SOURCES.length} valuation records · used on the <Link href="/valuation-evidence" className="text-teal underline">Valuation Evidence</Link> page</p>
+        <div className="card overflow-x-auto" tabIndex={0}>
+          <table className="tbl min-w-[1500px]">
+            <caption className="sr-only">Valuation extension evidence records V01 to V18</caption>
+            <thead><tr><th>ID</th><th>Company</th><th>Document / source title</th><th>Metric or claim supported</th><th>Source organization</th><th>Reporting period</th><th>Publication date</th><th>Observation date</th><th>Source</th><th>Link check</th><th>Classification</th><th>Known limitations</th></tr></thead>
+            <tbody>
+              {valRows.map((v) => (
+                <tr key={v.id} id={v.id}>
+                  <th scope="row" className="font-mono text-navy">{v.id}</th><td>{v.company}{v.ticker && <span className="block font-mono text-[11px] text-mute">{v.ticker}</span>}</td>
+                  <td>{v.title}{v.titleBasis === "url" && <span className="block text-[11px] text-mute">Title derived from URL; page not read</span>}</td>
+                  <td>{v.metric}</td><td>{v.organization}</td><td>{nd(v.reportingPeriod)}</td>
+                  <td className="num whitespace-nowrap">{nd(v.publicationDate)}{v.publicationDate && v.publicationDateBasis && <span className="block text-[11px] text-mute">from {v.publicationDateBasis}</span>}</td>
+                  <td className="num whitespace-nowrap">{nd(v.observationDate)}</td>
+                  <td><a href={v.url} target="_blank" rel="noopener noreferrer" aria-label={`Open source ${v.id}: ${v.title}`} className="break-all text-teal underline">{new URL(v.url).hostname.replace(/^www\./, "")}</a></td>
+                  <td><LinkStatusBadge url={v.url} /></td>
+                  <td className="text-[12.5px]">{v.classification}<span className="block text-[11px] text-mute">{valuationQuality(v)}</span></td>
+                  <td className="text-[12.5px]">{v.limitations}</td>
+                </tr>
+              ))}
+              {valRows.length === 0 && <tr><td colSpan={12} className="py-4 text-center text-mute">No valuation records match these filters.</td></tr>}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-1.5 text-[12px] text-mute">Fields that cannot be determined from the supplied materials read “{NOT_ESTABLISHED}”. Market observation dates apply to market-data records only; earnings-release publication dates were not provided. Deal-signal sources that are already registered (Vanta and Chainguard documents) keep their S-series IDs.</p>
       </Section>
 
       <Section title="Sourced metrics → evidence" id="metrics" aside={<span className="text-[12px] text-mute">Workbook sheet “Historical Inputs”</span>}>

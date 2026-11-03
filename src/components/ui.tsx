@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import type { Kind } from "@/data/sources";
 import { isNeg } from "@/engine";
+import { LINK_LABEL, linkCheck, type LinkStatus } from "@/data/linkchecks";
 
 const KIND: Record<Kind, { label: string; cls: string }> = {
   company: { label: "Company disclosure", cls: "bg-teal-soft text-teal border-teal/40" },
@@ -133,5 +134,22 @@ export function ModelLimitations() {
         {LIMITS_LIST.map((t) => <li key={t}>{t}</li>)}
       </ul>
     </Section>
+  );
+}
+
+const LINK_CLS: Record<LinkStatus, string> = {
+  accessible: "bg-teal-soft text-teal border-teal/40",
+  redirected: "bg-teal-soft text-teal border-teal/40",
+  restricted: "bg-warn-bg text-warn-ink border-amber-400/60",
+  broken: "bg-white text-neg border-neg",
+  unchecked: "bg-slate-100 text-slate border-slate-400/50",
+};
+/** Result of the automated link check recorded in link-checks.json. A 403 is inconclusive, never "verified" and never "broken". */
+export function LinkStatusBadge({ url }: { url: string }) {
+  const c = linkCheck(url);
+  return (
+    <span data-link-status={c.status} className={`inline-block rounded border px-1.5 py-px text-[10.5px] font-semibold leading-tight ${LINK_CLS[c.status]}`} title={c.http ? `HTTP ${c.http} on ${c.checkedAt}` : undefined}>
+      {LINK_LABEL[c.status]}{c.http && c.status === "restricted" ? ` (HTTP ${c.http})` : ""}
+    </span>
   );
 }
